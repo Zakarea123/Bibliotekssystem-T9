@@ -1,0 +1,10 @@
+@{
+    ViewData["Title"] = "Admin";
+}
+
+<h1>Admin Area</h1>
+<p>Du är inloggad som: <strong>@User.Identity?.Name</strong></p>
+
+<form method="post" asp-controller="Account" asp-action="Logout">
+    <button class="btn btn-outline-danger" type="submit">Logga ut</button>
+</form>

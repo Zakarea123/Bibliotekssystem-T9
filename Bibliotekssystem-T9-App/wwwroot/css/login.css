@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Inter:wght@400;500&display=swap');
+
+:root{
+    --bg: #004456;
+    --accent: #A04E28;
+    --card-opacity: 0.90;
+    --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body{
+    margin: 0;
+    background: var(--bg);
+    font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    display: grid;
+    place-items: center;
+    padding: 48px 18px;
+}
+
+/* Stor “bildram” centrerad */
+.login-stage{
+    width: min(1300px, 96vw);
+    height: min(860px, 80vh);
+    border-radius: var(--radius);
+    overflow: hidden;
+    position: relative;
+
+    /* Bakgrundsbild */
+    background-image: url("/images/library.jpg");
+    background-size: cover;
+    background-position: center;
+
+    /* Lite djup */
+    box-shadow: 0 20px 50px rgba(0,0,0,.25);
+}
+
+.login-stage::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,.12);
+}
+
+.login-card{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 420px;
+    max-width: calc(100% - 32px);
+
+    background: rgba(255,255,255,var(--card-opacity));
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+
+    border-radius: var(--radius);
+    padding: 34px 34px 26px;
+
+    text-align: center;
+    box-shadow: 0 14px 34px rgba(0,0,0,.18);
+}
+
+/* Ikon-cirkel */
+.login-icon{
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: #A04E28;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+}
+
+.login-icon img{
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.login-title{
+    font-family: "Poppins", system-ui, sans-serif;
+    font-size: 32px;
+    margin: 6px 0 6px;
+    color: #111827;
+}
+
+.login-subtitle{
+    margin: 0 0 18px;
+    color: rgba(17,24,39,.75);
+    font-size: 13px;
+}
+
+.login-form{
+    text-align: left;
+    margin-top: 6px;
+}
+
+.field{
+    margin: 10px 0 12px;
+}
+
+.field label{
+    display: block;
+    font-size: 12px;
+    color: rgba(17,24,39,.7);
+    margin-bottom: 6px;
+}
+
+.field input{
+    width: 100%;
+    height: 42px;
+    border-radius: 10px;
+    border: 1px solid rgba(17,24,39,.16);
+    padding: 0 12px;
+    outline: none;
+    background: rgba(255,255,255,.9);
+}
+
+.field input:focus{
+    border-color: rgba(160,78,40,.55);
+    box-shadow: 0 0 0 4px rgba(160,78,40,.18);
+}
+
+.login-button{
+    width: 100%;
+    height: 44px;
+    border-radius: 10px;
+    border: 0;
+    background: var(--accent);
+    color: #fff;
+    font-weight: 600;
+    margin-top: 8px;
+    cursor: pointer;
+}
+
+.login-button:hover{ opacity: .92; }
+
+.login-footer{
+    margin-top: 12px;
+    font-size: 11px;
+    color: rgba(17,24,39,.55);
+    text-align: center;
+}
+
+.login-error{
+    background: rgba(220,38,38,.10);
+    border: 1px solid rgba(220,38,38,.25);
+    color: #991b1b;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 13px;
+    margin: 10px 0 6px;
+}

@@ -2,7 +2,45 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Digital Library - Login</title>
+    <link rel="stylesheet" href="~/css/home.css" />
+</head>
+<body>
+<div class="home-shell">
+    <div class="home-stage">
+        
+        <!-- Center panel -->
+        <main class="panel">
+            <h1 class="panel-title">Välkommen<br/>användare!</h1>
+
+            <section class="action-row" aria-label="Snabbåtgärder">
+                <button class="action-tile" type="button" disabled>
+                    <div class="tile-label">Låna objekt</div>
+                </button>
+
+                <button class="action-tile" type="button" disabled>
+                    <div class="tile-label">Returnera objekt</div>
+                </button>
+
+                <button class="action-tile" type="button" disabled>
+                    <div class="tile-label">Mina lån</div>
+                </button>
+            </section>
+
+            <section class="info-callout" aria-label="Låneinformation">
+                <div class="callout-notch" aria-hidden="true"></div>
+                <div class="callout-body">
+                    <div>Aktiva lån: <strong>2</strong></div>
+                    <div>Nästa återlämning: <strong>15 mars</strong></div>
+                </div>
+            </section>
+        </main>
+    </div>
 </div>
+</body>
+</html>

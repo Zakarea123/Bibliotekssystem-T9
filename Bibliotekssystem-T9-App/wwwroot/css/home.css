@@ -32,19 +32,11 @@ body{
     overflow: hidden;
     position: relative;
     box-shadow: var(--shadow);
-
     background-image: url("/images/library.jpg");
     background-size: cover;
     background-position: center;
 }
 
-/* subtle overlay so content pops */
-.home-stage::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background: rgba(0,0,0,.14);
-}
 
 /* Center glass panel */
 .panel{
@@ -53,13 +45,11 @@ body{
     top: 52%;
     transform: translate(-50%, -50%);
     z-index: 2;
-
     width: min(680px, calc(100% - 64px));
     background: var(--glass);
     border-radius: var(--radius);
     padding: 34px 36px 30px;
     text-align: center;
-
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     box-shadow: 0 14px 34px rgba(0,0,0,.18);
@@ -95,8 +85,8 @@ body{
     box-shadow: 0 10px 22px rgba(0,0,0,.18);
 }
 
-.action-tile:disabled{
-    cursor: default;
+.action-tile{
+    cursor: pointer;
     opacity: 1;
 }
 
@@ -130,5 +120,83 @@ body{
     padding: 12px 14px;
     box-shadow: 0 10px 18px rgba(0,0,0,.10);
     font-size: 13px;
+}
+
+
+/* Top bar */
+.topbar{
+    position: absolute;
+    top: 18px;
+    left: 18px;
+    right: 18px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+}
+
+.search-container{
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: min(520px, 62vw);
+}
+
+.searchbox{
+    width: min(520px, 62vw);
+    height: 34px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.85);
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+}
+
+.searchbox input{
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 100%;
+    font-size: 14px;
+}
+.search-icon{ font-size: 14px; opacity: .75; }
+
+.topbar-right{
+    margin-left: auto;
+    display: flex;
+    gap: 18px;
+    align-items: center;
+}
+
+.nav-item{
+    border: none;
+    background: transparent;
+    color: rgba(255,255,255,.95);
+    display: grid;
+    justify-items: center;
+    gap: 4px;
+    cursor: pointer;
+    position: relative;
+    padding: 6px 8px;
+}
+
+
+.nav-emoji{ font-size: 18px; line-height: 1; }
+.nav-text{ font-size: 11px; }
+
+.nav-badge{
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    border-radius: 999px;
+    background: #c0392b;
+    color: white;
+    font-size: 10px;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 6px 14px rgba(0,0,0,.22);
 }
 

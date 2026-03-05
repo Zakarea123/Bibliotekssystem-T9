@@ -85,6 +85,9 @@ body {
     box-shadow: 0 10px 22px rgba(0,0,0,.18);
     cursor: pointer;
 }
+.action-tile:hover {
+    background: #8a5945;
+}
 
 .tile-label {
     font-size: 13px;
@@ -205,4 +208,24 @@ body {
     display: grid;
     place-items: center;
     box-shadow: 0 6px 14px rgba(0,0,0,.22);
+}
+
+/* Bottom-right logout */
+.logout{
+    position: absolute;
+    right: 18px;
+    bottom: 18px;
+    background: dimgray;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.logout-icon{ font-size: 16px; }
+.logout:hover {
+    background: #312e2e;
 }

@@ -1,0 +1,98 @@
+/*
+   Loans-specific styles. layout.css must be loaded first.
+ */
+
+/* Wider panel to fit the table */
+.loans-panel {
+    width: min(900px, 92%);
+    padding: 28px 32px 28px;
+    text-align: left;
+}
+
+/* Back button */
+.back-btn {
+    display: inline-block;
+    margin-bottom: 14px;
+    font-size: 13px;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 500;
+}
+.back-btn:hover {
+    text-decoration: underline;
+}
+
+/* Summary chips row */
+.loans-summary {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+}
+
+.summary-chip {
+    background: rgba(0, 68, 86, 0.08);
+    border-radius: 999px;
+    padding: 5px 14px;
+    font-size: 13px;
+    color: #123;
+}
+
+/* Table wrapper — scroll on small screens */
+.loans-table-wrapper {
+    overflow-x: auto;
+}
+
+.loans-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.loans-table thead tr {
+    border-bottom: 2px solid rgba(0,0,0,0.10);
+}
+
+.loans-table th {
+    text-align: left;
+    padding: 10px 14px;
+    font-weight: 600;
+    color: #333;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.loans-table td {
+    padding: 12px 14px;
+    color: #222;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.loans-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.loans-table tbody tr:hover {
+    background: rgba(0, 68, 86, 0.04);
+}
+
+/* Status badges */
+.status-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status-active {
+    background: #d4edda;
+    color: #1a6630;
+}
+
+.status-overdue {
+    background: #f8d7da;
+    color: #842029;
+}
+

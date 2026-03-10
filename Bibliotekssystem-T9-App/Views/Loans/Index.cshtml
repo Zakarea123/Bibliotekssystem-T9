@@ -1,0 +1,101 @@
+@{
+    ViewData["Title"] = "Mina lån";
+}
+
+
+<div class="home-shell">
+    <!-- Top bar -->
+    <header class="topbar">
+        <div></div>
+
+        <div class="search-container">
+            <div class="searchbox">
+                <span class="search-icon" aria-hidden="true">🔍</span>
+                <input type="text" placeholder="Sök" aria-label="Sök" />
+            </div>
+        </div>
+
+        <nav class="topbar-right" aria-label="Snabbmeny">
+            <button class="nav-item" type="button">
+                <span class="nav-badge">0</span>
+                <span class="nav-emoji" aria-hidden="true">📥</span>
+                <span class="nav-text">Inkorg</span>
+            </button>
+            <button class="nav-item" type="button">
+                <span class="nav-badge">0</span>
+                <span class="nav-emoji" aria-hidden="true">🔔</span>
+                <span class="nav-text">Notiser</span>
+            </button>
+            <button class="nav-item" type="button">
+                <span class="nav-emoji" aria-hidden="true">👤</span>
+                <span class="nav-text">Konto</span>
+            </button>
+        </nav>
+    </header>
+
+    <div class="home-stage">
+        <main class="panel loans-panel">
+
+            <!-- Back button -->
+            <a asp-controller="Home" asp-action="Index" class="back-btn" aria-label="Tillbaka till startsidan">
+                ← Tillbaka
+            </a>
+
+            <h1 class="panel-title">Mina lån</h1>
+
+            <!-- Summary row -->
+            <div class="loans-summary">
+                <div class="summary-chip">Aktiva lån: <strong>2</strong></div>
+                <div class="summary-chip">Förfallna: <strong>1</strong></div>
+            </div>
+
+            <!-- Loans table -->
+            <div class="loans-table-wrapper">
+                <table class="loans-table">
+                    <thead>
+                        <tr>
+                            <th>Objekt</th>
+                            <th>Utlånad</th>
+                            <th>Förfallodatum</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Fake data — will be replaced with real API data later -->
+                        <tr>
+                            <td>Härifrån till evigheten</td>
+                            <td>2025-03-01</td>
+                            <td>2025-03-22</td>
+                            <td><span class="status-badge status-active">Aktiv</span></td>
+                        </tr>
+                        <tr>
+                            <td>Sagan om ringen</td>
+                            <td>2025-02-15</td>
+                            <td>2025-03-08</td>
+                            <td><span class="status-badge status-overdue">Förfallen</span></td>
+                        </tr>
+                        <tr>
+                            <td>1984</td>
+                            <td>2025-03-05</td>
+                            <td>2025-03-26</td>
+                            <td><span class="status-badge status-active">Aktiv</span></td>
+                        </tr>
+                        <tr>
+                            <td>Brott och straff</td>
+                            <td>2025-03-10</td>
+                            <td>2025-03-31</td>
+                            <td><span class="status-badge status-active">Återlämnad</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Bottom-right logout -->
+    <button class="logout" type="button">
+        <span class="logout-icon" aria-hidden="true">↩</span>
+        <span>Logga ut</span>
+    </button>
+</div>

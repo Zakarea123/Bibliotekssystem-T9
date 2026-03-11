@@ -1,9 +1,20 @@
+using Bibliotekssystem_T9_App.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+
+// Register HttpClient for LoanService
+builder.Services.AddHttpClient("LoanService", client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["ApiUrls:LoanService"]!);
+});
+
+// Registers LoanApiService for dependency injection.
+builder.Services.AddScoped<LoanApiService>();
 
 // Cookie Authentication
 builder.Services

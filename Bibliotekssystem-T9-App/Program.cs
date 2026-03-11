@@ -12,6 +12,8 @@ builder.Services.AddHttpClient("LoanService", client =>
 {
     client.BaseAddress = new Uri(builder.Configuration["ApiUrls:LoanService"]!);
 });
+
+// Registers LoanApiService for dependency injection.
 builder.Services.AddScoped<LoanApiService>();
 
 // Cookie Authentication

@@ -12,7 +12,7 @@ public class LoansController : Controller
         _loanApiService = loanApiService;
     }
     
-    // GET
+    // GET: Fetches active loans for the current user from LoanService
     public async Task<IActionResult> Index()
     {
         var borrowerId = 5; // TODO: replace with real user ID from Account API later

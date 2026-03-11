@@ -11,6 +11,7 @@ public class LoanApiService
         _client = clientFactory.CreateClient("LoanService");
     }
 
+    // Calls GET /api/loans/borrower/{borrowerId} and deserializes the response into a list of loans.
     public async Task<List<Loan>> GetBorrowerLoansAsync(int borrowerId)
     {
         var url = $"api/loans/borrower/{borrowerId}";

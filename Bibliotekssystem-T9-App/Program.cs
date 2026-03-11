@@ -5,6 +5,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+
+// Register HttpClient for LoanService
+builder.Services.AddHttpClient("LoanService", client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["ApiUrls:LoanService"]!);
+});
+
 // Cookie Authentication
 builder.Services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

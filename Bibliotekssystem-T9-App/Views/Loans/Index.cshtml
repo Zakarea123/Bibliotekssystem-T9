@@ -61,31 +61,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <!-- Fake data — will be replaced with real API data later -->
+                    @foreach (var loan in Model)
+                    {
                         <tr>
-                            <td>Härifrån till evigheten</td>
-                            <td>2025-03-01</td>
-                            <td>2025-03-22</td>
-                            <td><span class="status-badge status-active">Aktiv</span></td>
+                            <!-- TODO: Replace ItemId with actual item title from LibraryCatalogService once catalog integration is done -->
+                            <td>@loan.ItemId</td>
+                            <td>@loan.LoanDate.ToString("yyyy-MM-dd")</td>
+                            <td>@loan.DueDate.ToString("yyyy-MM-dd")</td>
+                            <td>
+                                <span class="status-badge @(loan.DueDate < DateTime.Now ? "status-overdue" : "status-active")">
+                                    @(loan.DueDate < DateTime.Now ? "Förfallen" : "Aktiv")
+                                </span>
+                            </td>
                         </tr>
-                        <tr>
-                            <td>Sagan om ringen</td>
-                            <td>2025-02-15</td>
-                            <td>2025-03-08</td>
-                            <td><span class="status-badge status-overdue">Förfallen</span></td>
-                        </tr>
-                        <tr>
-                            <td>1984</td>
-                            <td>2025-03-05</td>
-                            <td>2025-03-26</td>
-                            <td><span class="status-badge status-active">Aktiv</span></td>
-                        </tr>
-                        <tr>
-                            <td>Brott och straff</td>
-                            <td>2025-03-10</td>
-                            <td>2025-03-31</td>
-                            <td><span class="status-badge status-active">Återlämnad</span></td>
-                        </tr>
+                    }
                     </tbody>
                 </table>
             </div>

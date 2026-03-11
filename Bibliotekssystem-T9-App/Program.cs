@@ -1,3 +1,4 @@
+using Bibliotekssystem_T9_App.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,7 @@ builder.Services.AddHttpClient("LoanService", client =>
 {
     client.BaseAddress = new Uri(builder.Configuration["ApiUrls:LoanService"]!);
 });
+builder.Services.AddScoped<LoanApiService>();
 
 // Cookie Authentication
 builder.Services

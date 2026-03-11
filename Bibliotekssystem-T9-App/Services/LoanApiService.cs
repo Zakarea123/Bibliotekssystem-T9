@@ -20,4 +20,12 @@ public class LoanApiService
         response.EnsureSuccessStatusCode();
         return await response.Content.ReadFromJsonAsync<List<Loan>>() ?? new List<Loan>();
     }
+    
+    // Calls GET /api/loans/borrower/{borrowerId}/history and deserializes the response into a list of loans.
+    public async Task<List<Loan>> GetBorrowerHistoryAsync(int borrowerId)
+    {
+        var response = await _client.GetAsync($"api/loans/borrower/{borrowerId}/history");
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadFromJsonAsync<List<Loan>>() ?? new List<Loan>();
+    }
 }

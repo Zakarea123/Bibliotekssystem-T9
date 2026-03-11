@@ -9,6 +9,13 @@
     text-align: left;
 }
 
+.panel-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+}
+
 /* Back button */
 .back-btn {
     display: inline-block;
@@ -19,6 +26,18 @@
     font-weight: 500;
 }
 .back-btn:hover {
+    text-decoration: underline;
+}
+
+/* See history button */
+.history-btn {
+    font-size: 13px;
+    font-weight: 500;
+    color: #842029;
+    text-decoration: none;
+}
+
+.history-btn:hover {
     text-decoration: underline;
 }
 
@@ -96,3 +115,7 @@
     color: #842029;
 }
 
+.status-returned {
+    background: yellowgreen;
+    color: #41464b;
+}

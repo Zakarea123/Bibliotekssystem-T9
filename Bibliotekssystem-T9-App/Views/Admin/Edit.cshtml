@@ -1,0 +1,36 @@
+﻿@model Bibliotekssystem_T9_App.Dtos.UserDto
+
+<h2>Ändra användare</h2>
+
+<form asp-action="Edit" method="post">
+    <input asp-for="Id" type="hidden" />
+
+    <div>
+        <label asp-for="FullName"></label>
+        <input asp-for="FullName" />
+        <span asp-validation-for="FullName"></span>
+    </div>
+
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+
+    <div>
+        <label asp-for="Role"></label>
+        <select asp-for="Role">
+            <option value="User">User</option>
+            <option value="Admin">Admin</option>
+        </select>
+        <span asp-validation-for="Role"></span>
+    </div>
+
+    <button type="submit">Spara</button>
+</form>
+
+<div asp-validation-summary="All"></div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

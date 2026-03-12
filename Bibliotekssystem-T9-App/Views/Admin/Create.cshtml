@@ -1,0 +1,40 @@
+﻿@model Bibliotekssystem_T9_App.Dtos.CreateUserDto
+
+<h2>Skapa användare</h2>
+
+<form asp-action="Create" method="post">
+    <div>
+        <label asp-for="FullName"></label>
+        <input asp-for="FullName" />
+        <span asp-validation-for="FullName"></span>
+    </div>
+
+    <div>
+        <label asp-for="Email"></label>
+        <input asp-for="Email" />
+        <span asp-validation-for="Email"></span>
+    </div>
+
+    <div>
+        <label asp-for="Password"></label>
+        <input asp-for="Password" type="password" />
+        <span asp-validation-for="Password"></span>
+    </div>
+
+    <div>
+        <label asp-for="Role"></label>
+        <select asp-for="Role">
+            <option value="User">User</option>
+            <option value="Admin">Admin</option>
+        </select>
+        <span asp-validation-for="Role"></span>
+    </div>
+
+    <button type="submit">Skapa</button>
+</form>
+
+<div asp-validation-summary="All"></div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

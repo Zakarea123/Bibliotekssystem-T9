@@ -1,11 +1,12 @@
+using Bibliotekssystem_T9_App.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Lägg till tjänster i containern.
 builder.Services.AddControllersWithViews();
 
-// Cookie Authentication
+// Cookie-autentisering
 builder.Services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -16,9 +17,16 @@ builder.Services
         options.SlidingExpiration = true;
     });
 
+//Registrera HttpClient i MVC
+builder.Services.AddHttpClient<UserApiService>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7055");
+    client.DefaultRequestHeaders.Add("X-API-KEY", "DEV-CHANGE-ME-123");
+});
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Konfigurera HTTP-begäran pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");

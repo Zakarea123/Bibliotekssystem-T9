@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Bibliotekssystem_T9_App.Controllers;
 
-[Authorize]
+[Authorize(Roles = "Admin")]
 public class AdminController : Controller
 {
     private readonly UserApiService _userApiService;
@@ -18,7 +18,6 @@ public class AdminController : Controller
     public async Task<IActionResult> Index()
     {
         var users = await _userApiService.GetUsersAsync();
-
         return View(users);
     }
 
@@ -51,6 +50,7 @@ public class AdminController : Controller
 
         return RedirectToAction(nameof(Index));
     }
+
     [HttpGet]
     public async Task<IActionResult> Edit(int id)
     {
@@ -60,10 +60,20 @@ public class AdminController : Controller
         if (user is null)
             return NotFound();
 
-        return View(user);
+        var dto = new EditUserDto
+        {
+            Id = user.Id,
+            FullName = user.FullName,
+            Email = user.Email,
+            Role = user.Role,
+            Password = string.Empty
+        };
+
+        return View(dto);
     }
+
     [HttpPost]
-    public async Task<IActionResult> Edit(UserDto dto)
+    public async Task<IActionResult> Edit(EditUserDto dto)
     {
         if (!ModelState.IsValid)
             return View(dto);

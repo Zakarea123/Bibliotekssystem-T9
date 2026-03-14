@@ -62,7 +62,7 @@ public class AccountController : Controller
 
         return user.Role == "Admin"
             ? RedirectToAction("Index", "Admin")
-            : RedirectToAction("Index", "Library");
+            : RedirectToAction("Index", "Home");
     }
 
     [HttpPost]

@@ -18,10 +18,13 @@ builder.Services
     });
 
 //Registrera HttpClient i MVC
+var userServiceBaseUrl = builder.Configuration["UserService:BaseUrl"];
+var userServiceApiKey = builder.Configuration["UserService:ApiKey"];
+
 builder.Services.AddHttpClient<UserApiService>(client =>
 {
-    client.BaseAddress = new Uri("https://localhost:7055");
-    client.DefaultRequestHeaders.Add("X-API-KEY", "DEV-CHANGE-ME-123");
+    client.BaseAddress = new Uri(userServiceBaseUrl!);
+    client.DefaultRequestHeaders.Add("X-API-KEY", userServiceApiKey!);
 });
 
 var app = builder.Build();

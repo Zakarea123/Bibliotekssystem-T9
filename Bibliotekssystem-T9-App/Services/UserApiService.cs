@@ -39,9 +39,9 @@ public class UserApiService
         var response = await _httpClient.PostAsJsonAsync("/api/Users", dto);
         return response.IsSuccessStatusCode;
     }
-    public async Task<bool> UpdateUserAsync(UserDto dto)
+    public async Task<bool> UpdateUserAsync(EditUserDto dto)
     {
-        var response = await _httpClient.PutAsJsonAsync($"/api/Users/{dto.Id}", dto);
+        var response = await _httpClient.PutAsJsonAsync($"api/users/{dto.Id}", dto);
         return response.IsSuccessStatusCode;
     }
 }

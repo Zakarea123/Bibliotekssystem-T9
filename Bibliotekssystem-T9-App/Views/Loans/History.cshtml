@@ -1,0 +1,62 @@
+@model List<Bibliotekssystem_T9_App.Models.Loan>
+
+@{
+    ViewData["Title"] = "Lånehistorik";
+}
+
+<link rel="stylesheet" href="~/css/loans.css" />
+
+<div class="home-stage">
+    <main class="panel loans-panel">
+
+        <!-- Panel top bar -->
+        <div class="panel-topbar">
+            <a asp-controller="Loans" asp-action="Index" class="back-btn">← Mina lån</a>
+        </div>
+
+        <h1 class="panel-title">Lånehistorik</h1>
+
+        <!-- Summary row -->
+        <div class="loans-summary">
+            <div class="summary-chip">Totalt antal lån: <strong>@Model.Count()</strong></div>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <p class="no-loans-msg">Du har ingen lånehistorik</p>
+        }
+        else
+        {
+            <div class="loans-table-wrapper">
+                <table class="loans-table">
+                    <thead>
+                        <tr>
+                            <th>Objekt</th>
+                            <th>Utlånad</th>
+                            <th>Förfallodatum</th>
+                            <th>Återlämnad</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var loan in Model)
+                    {
+                        <tr>
+                            <!-- TODO: Replace ItemId with actual item title from LibraryCatalogService once catalog integration is done -->
+                            <td>@loan.ItemId</td>
+                            <td>@loan.LoanDate.ToString("yyyy-MM-dd")</td>
+                            <td>@loan.DueDate.ToString("yyyy-MM-dd")</td>
+                            <td>@(loan.ReturnDate.HasValue ? loan.ReturnDate.Value.ToString("yyyy-MM-dd") : "-")</td>
+                            <td>
+                                <span class="status-badge @(loan.IsReturned ? "status-returned" : loan.DueDate < DateTime.Now ? "status-overdue" : "status-active")">
+                                    @(loan.IsReturned ? "Återlämnad" : loan.DueDate < DateTime.Now ? "Förfallen" : "Aktiv")
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </main>
+</div>

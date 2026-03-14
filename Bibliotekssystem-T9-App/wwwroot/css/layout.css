@@ -84,6 +84,7 @@ body {
     place-items: center;
     box-shadow: 0 10px 22px rgba(0,0,0,.18);
     cursor: pointer;
+    text-decoration: none;
 }
 .action-tile:hover {
     background: #8a5945;
@@ -139,7 +140,7 @@ body {
 .topbar {
     width: min(1300px, 70vw);
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: 1fr 2fr 1fr;
     align-items: center;
     gap: 14px;
 }

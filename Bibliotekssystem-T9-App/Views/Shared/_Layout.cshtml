@@ -8,14 +8,57 @@
     <link rel="icon" type="image/x-icon" href="~/Books.ico" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/Bibliotekssystem_T9_App.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/home.css" />
+    <link rel="stylesheet" href="~/css/layout.css" />
+    <link rel="stylesheet" href="~/css/loans.css" />
 </head>
 <body>
+<<<<<<< HEAD
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
     @RenderSection("Scripts", required: false)
+=======
+<div class="home-shell">
+    <!-- Top bar -->
+    <header class="topbar">
+        <div></div> <!-- Spacer Div to center Searchbar -->
+        
+        <div class="search-container">
+            <div class="searchbox">
+                <span class="search-icon" aria-hidden="true">🔍</span>
+                <input type="text" placeholder="Sök" aria-label="Sök"/>
+            </div>
+        </div>
+        
+        <nav class="topbar-right" aria-label="Snabbmeny">
+            <button class="nav-item" type="button">
+                <span class="nav-badge">0</span>
+                <span class="nav-emoji" aria-hidden="true">📥</span>
+                <span class="nav-text">Inkorg</span>
+            </button>
+            <button class="nav-item" type="button">
+                <span class="nav-badge">0</span>
+                <span class="nav-emoji" aria-hidden="true">🔔</span>
+                <span class="nav-text">Notiser</span>
+            </button>
+            <button class="nav-item" type="button">
+                <span class="nav-emoji" aria-hidden="true">👤</span>
+                <span class="nav-text">Konto</span>
+            </button>
+        </nav>
+    </header>
+    
+    @RenderBody()
+    
+    <!-- Bottom-right logout -->
+    <button class="logout" type="button">
+        <span class="logout-icon" aria-hidden="true">↩</span>
+        <span>Logga ut</span>
+    </button>
+</div>
+@await RenderSectionAsync("Scripts", required: false)
+>>>>>>> origin/main
 </body>
 </html>

@@ -1,0 +1,61 @@
+@model List<Bibliotekssystem_T9_App.Models.Loan>
+@{
+    ViewData["Title"] = "Mina lån";
+}
+
+    <div class="home-stage">
+        <main class="panel loans-panel">
+
+            <!-- Back button and see history-->
+            <div class="panel-topbar">
+                <a asp-controller="Home" asp-action="Index" class="back-btn">← Tillbaka</a>
+                <a asp-controller="Loans" asp-action="History" class="history-btn">Se historik →</a>
+            </div>
+
+            <h1 class="panel-title">Mina lån</h1>
+
+            <!-- Summary row -->
+            <div class="loans-summary">
+                <div class="summary-chip">Aktiva lån: <strong>@Model.Count(l => l.DueDate >= DateTime.Now)</strong></div>
+                <div class="summary-chip">Förfallna: <strong>@Model.Count(l => l.DueDate < DateTime.Now)</strong></div>
+            </div>
+            @if (!Model.Any())
+            {
+                <p class="no-loans-msg">Du har inga aktiva lån</p>
+            }
+            else
+            {
+            <!-- Loans table -->
+            <div class="loans-table-wrapper">
+                <table class="loans-table">
+                    <thead>
+                    <tr>
+                        <th>Objekt</th>
+                        <th>Utlånad</th>
+                        <th>Förfallodatum</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var loan in Model)
+                    {
+                        <tr>
+                            <!-- TODO: Replace ItemId with actual item title from LibraryCatalogService once catalog integration is done -->
+                            <td>@loan.ItemId</td>
+                            <td>@loan.LoanDate.ToString("yyyy-MM-dd")</td>
+                            <td>@loan.DueDate.ToString("yyyy-MM-dd")</td>
+                            <td>
+                                <span class="status-badge @(loan.DueDate < DateTime.Now ? "status-overdue" : "status-active")">
+                                    @(loan.DueDate < DateTime.Now ? "Förfallen" : "Aktiv")
+                                </span>
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+            }
+        </main>
+    </div>
+
+

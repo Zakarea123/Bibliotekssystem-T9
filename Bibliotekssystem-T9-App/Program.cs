@@ -3,20 +3,20 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Lägg till tjänster i containern.
 builder.Services.AddControllersWithViews();
 
 
-// Register HttpClient for LoanService
+// Registera HttpClient för LoanService
 builder.Services.AddHttpClient("LoanService", client =>
 {
     client.BaseAddress = new Uri(builder.Configuration["ApiUrls:LoanService"]!);
 });
 
-// Registers LoanApiService for dependency injection.
+// Registera LoanApiService för dependency injection.
 builder.Services.AddScoped<LoanApiService>();
 
-// Cookie Authentication
+// Cookie-Autentisering
 builder.Services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -27,9 +27,19 @@ builder.Services
         options.SlidingExpiration = true;
     });
 
+//Registrera HttpClient i MVC
+var userServiceBaseUrl = builder.Configuration["UserService:BaseUrl"];
+var userServiceApiKey = builder.Configuration["UserService:ApiKey"];
+
+builder.Services.AddHttpClient<UserApiService>(client =>
+{
+    client.BaseAddress = new Uri(userServiceBaseUrl!);
+    client.DefaultRequestHeaders.Add("X-API-KEY", userServiceApiKey!);
+});
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Konfigurera HTTP-begäran pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");

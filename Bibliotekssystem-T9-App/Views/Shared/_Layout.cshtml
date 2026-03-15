@@ -1,5 +1,11 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@{
+    var controller = ViewContext.RouteData.Values["controller"]?.ToString();
+    var action = ViewContext.RouteData.Values["action"]?.ToString();
+    var isAdminPage = string.Equals(controller, "Admin", StringComparison.OrdinalIgnoreCase);
+}
+
+<!DOCTYPE html>
+<html lang="sv">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,48 +14,80 @@
     <link rel="icon" type="image/x-icon" href="~/Books.ico" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/Bibliotekssystem_T9_App.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/css/layout.css" />
-    <link rel="stylesheet" href="~/css/loans.css" />
+    <link rel="stylesheet" href="~/css/layout.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/loans.css" asp-append-version="true" />
+    @RenderSection("Styles", required: false)
 </head>
 <body>
-<div class="home-shell">
-    <!-- Top bar -->
-    <header class="topbar">
-        <div></div> <!-- Spacer Div to center Searchbar -->
-        
-        <div class="search-container">
-            <div class="searchbox">
-                <span class="search-icon" aria-hidden="true">🔍</span>
-                <input type="text" placeholder="Sök" aria-label="Sök"/>
-            </div>
-        </div>
-        
-        <nav class="topbar-right" aria-label="Snabbmeny">
-            <button class="nav-item" type="button">
-                <span class="nav-badge">0</span>
-                <span class="nav-emoji" aria-hidden="true">📥</span>
-                <span class="nav-text">Inkorg</span>
-            </button>
-            <button class="nav-item" type="button">
-                <span class="nav-badge">0</span>
-                <span class="nav-emoji" aria-hidden="true">🔔</span>
-                <span class="nav-text">Notiser</span>
-            </button>
-            <button class="nav-item" type="button">
-                <span class="nav-emoji" aria-hidden="true">👤</span>
-                <span class="nav-text">Konto</span>
-            </button>
-        </nav>
-    </header>
-    
-    @RenderBody()
-    
-    <!-- Bottom-right logout -->
-    <button class="logout" type="button">
-        <span class="logout-icon" aria-hidden="true">↩</span>
-        <span>Logga ut</span>
-    </button>
-</div>
-@await RenderSectionAsync("Scripts", required: false)
+    <div class="home-shell @(isAdminPage ? "admin-shell-layout" : "")">
+
+        @if (isAdminPage)
+        {
+            <header class="topbar admin-topbar-layout">
+                <div class="admin-topbar-left">
+                </div>
+
+                <nav class="topbar-right" aria-label="Admin snabbmeny">
+                    <button class="nav-item" type="button">
+                        <span class="nav-badge">0</span>
+                        <span class="nav-emoji" aria-hidden="true">🔔</span>
+                        <span class="nav-text">Notiser</span>
+                    </button>
+
+                    <button class="nav-item" type="button">
+                        <span class="nav-emoji" aria-hidden="true">👤</span>
+                        <span class="nav-text">Konto</span>
+                    </button>
+                </nav>
+            </header>
+        }
+        else
+        {
+            <header class="topbar">
+                <div></div>
+
+                <div class="search-container">
+                    <div class="searchbox">
+                        <span class="search-icon" aria-hidden="true">🔍</span>
+                        <input type="text" placeholder="Sök" aria-label="Sök" />
+                    </div>
+                </div>
+
+                <nav class="topbar-right" aria-label="Snabbmeny">
+                    <button class="nav-item" type="button">
+                        <span class="nav-badge">0</span>
+                        <span class="nav-emoji" aria-hidden="true">📥</span>
+                        <span class="nav-text">Inkorg</span>
+                    </button>
+
+                    <button class="nav-item" type="button">
+                        <span class="nav-badge">0</span>
+                        <span class="nav-emoji" aria-hidden="true">🔔</span>
+                        <span class="nav-text">Notiser</span>
+                    </button>
+
+                    <button class="nav-item" type="button">
+                        <span class="nav-emoji" aria-hidden="true">👤</span>
+                        <span class="nav-text">Konto</span>
+                    </button>
+                </nav>
+            </header>
+        }
+
+        @RenderBody()
+
+        @if (User.Identity != null && User.Identity.IsAuthenticated)
+        {
+            <form method="post" asp-controller="Account" asp-action="Logout" class="logout-form">
+                @Html.AntiForgeryToken()
+                <button class="logout" type="submit">
+                    <span class="logout-icon" aria-hidden="true">↩</span>
+                    <span>Logga ut</span>
+                </button>
+            </form>
+        }
+    </div>
+
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

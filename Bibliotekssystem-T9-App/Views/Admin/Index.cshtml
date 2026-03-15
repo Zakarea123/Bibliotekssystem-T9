@@ -1,45 +1,110 @@
 @model List<Bibliotekssystem_T9_App.Dtos.UserDto>
 
 @{
-    ViewData["Title"] = "Admin";
+    ViewData["Title"] = "Hantera användare";
 }
 
-<h1>Admin Area</h1>
-<p>Du är inloggad som: <strong>@User.Identity?.Name</strong></p>
+@section Styles {
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+}
 
-<form method="post" asp-controller="Account" asp-action="Logout">
-    <button class="btn btn-outline-danger" type="submit">Logga ut</button>
-</form>
+<div class="admin-page">
+    <div class="admin-frame">
+        <aside class="admin-sidebar">
+            <div>
+                <h2 class="sidebar-title">Meny</h2>
 
-<h2>Användare</h2>
-<p>
-    <a asp-action="Create" asp-controller="Admin">Skapa ny användare</a>
-</p>
+                <nav class="sidebar-nav">
+                    <a asp-controller="Admin" asp-action="Index" class="sidebar-link active">
+                        Hantera användare
+                    </a>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Namn</th>
-            <th>Email</th>
-            <th>Roll</th>
-            <th>Åtgärd</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Model)
-        {
-            <tr>
-                <td>@user.FullName</td>
-                <td>@user.Email</td>
-                <td>@user.Role</td>
-                <td>
-                    <a asp-action="Edit" asp-controller="Admin" asp-route-id="@user.Id">Ändra</a>
-                    <form asp-action="Delete" asp-controller="Admin" method="post" style="display:inline;">
-                        <input type="hidden" name="id" value="@user.Id" />
-                        <button type="submit">Radera</button>
+                    <a href="#" class="sidebar-link">
+                        Hantera katalog
+                    </a>
+
+                    <a href="#" class="sidebar-link">
+                        Hantera utlåningsstatus
+                        <span>och påminnelser</span>
+                    </a>
+                </nav>
+            </div>
+
+            <a asp-controller="Home" asp-action="Index" class="back-link">Till start</a>
+        </aside>
+
+        <section class="admin-stage">
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h1>Hantera användare</h1>
+                    <p>Inloggad som <strong>@User.Identity?.Name</strong></p>
+                </div>
+
+                <div class="admin-toolbar">
+                    <form method="get" asp-action="Index" asp-controller="Admin" class="search-form">
+                        <input type="text"
+                               name="searchTerm"
+                               value="@Context.Request.Query["searchTerm"]"
+                               placeholder="Sök efter användare" />
                     </form>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+
+                    <a asp-action="Create" asp-controller="Admin" class="create-btn">
+                        + Lägg till ny användare
+                    </a>
+                </div>
+
+                <div class="table-wrapper">
+                    <table class="users-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Namn</th>
+                                <th>E-post</th>
+                                <th>Roll</th>
+                                <th>Åtgärder</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model != null && Model.Any())
+                            {
+                                foreach (var user in Model)
+                                {
+                                    <tr>
+                                        <td>@user.Id</td>
+                                        <td>@user.FullName</td>
+                                        <td>@user.Email</td>
+                                        <td>@user.Role</td>
+                                        <td class="action-cell">
+                                            <a asp-action="Edit"
+                                                   asp-controller="Admin"
+                                                   asp-route-id="@user.Id"
+                                                   class="edit-btn">
+                                                Ändra
+                                            </a>
+
+                                            <form asp-action="Delete"
+                                                  asp-controller="Admin"
+                                                  method="post"
+                                                  class="inline-form"
+                                                  onsubmit="return confirm('Vill du verkligen radera användaren?');">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="id" value="@user.Id" />
+                                                <button type="submit" class="delete-btn">Ta bort</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="5" class="empty-state">Inga användare hittades.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

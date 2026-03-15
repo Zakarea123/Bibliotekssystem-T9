@@ -61,7 +61,7 @@ public class AccountController : Controller
             return Redirect(returnUrl);
 
         return user.Role == "Admin"
-            ? RedirectToAction("Index", "Admin")
+            ? RedirectToAction("Index", "Home")
             : RedirectToAction("Index", "Home");
     }
 

@@ -15,9 +15,21 @@ public class AdminController : Controller
         _userApiService = userApiService;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(string? searchTerm)
     {
         var users = await _userApiService.GetUsersAsync();
+
+        if (!string.IsNullOrWhiteSpace(searchTerm))
+        {
+            users = users
+                .Where(u =>
+                    u.FullName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    u.Email.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    u.Role.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    u.Id.ToString().Contains(searchTerm))
+                .ToList();
+        }
+
         return View(users);
     }
 

@@ -7,16 +7,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 
-// Register HttpClient for LoanService
+// Registera HttpClient för LoanService
 builder.Services.AddHttpClient("LoanService", client =>
 {
     client.BaseAddress = new Uri(builder.Configuration["ApiUrls:LoanService"]!);
 });
 
-// Registers LoanApiService for dependency injection.
+// Registera LoanApiService för dependency injection.
 builder.Services.AddScoped<LoanApiService>();
 
-// Cookie Authentication
+// Cookie-Autentisering
 builder.Services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>

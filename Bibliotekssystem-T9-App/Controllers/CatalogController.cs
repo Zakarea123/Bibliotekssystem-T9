@@ -24,7 +24,7 @@ public class CatalogController : Controller
     //GET: Visar detaljer för ett specifikt objekt
     public async Task<IActionResult> Details(int id)
     {
-        var item = await _catalogApiService.GetItemsAsync(id);
+        Item? item = await _catalogApiService.GetItemAsync(id);
         if (item is null) return NotFound();
         return View(item);
     }
@@ -50,7 +50,7 @@ public class CatalogController : Controller
     [Authorize]
     public async Task<IActionResult> Edit(int id)
     {
-        var item = await _catalogApiService.GetItemsAsync(id);
+        Item? item = await _catalogApiService.GetItemAsync(id);
         if (item is null) return NotFound();
         ViewBag.ItemTypes = await _catalogApiService.GetItemTypesAsync();
         return View(item);
@@ -69,7 +69,7 @@ public class CatalogController : Controller
     [Authorize]
     public async Task<IActionResult> Delete(int id)
     {
-        var item = await _catalogApiService.GetItemsAsync(id);
+        Item? item = await _catalogApiService.GetItemAsync(id);
         if (item is null) return NotFound();
         return View(item);
     }

@@ -18,7 +18,7 @@ public class CatalogApiService
         return await response.Content.ReadFromJsonAsync<List<Item>>() ?? new();
     }
 
-    public async Task<Item?> GetItemsAsync(int id)
+    public async Task<Item?> GetItemAsync(int id)
     {
         var response = await _client.GetAsync($"api/Items/{id}");
         if (response.StatusCode == System.Net.HttpStatusCode.NotFound) return null;

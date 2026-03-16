@@ -1,7 +1,7 @@
 ﻿using Bibliotekssystem_T9_App.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-
+using System.Security.Claims;
 namespace Bibliotekssystem_T9_App.Controllers;
 
 [Authorize] // Kräver inloggning. Man kan ej nå notiser utan att vara autentiserad.
@@ -18,8 +18,7 @@ public class NotificationsController : Controller
     // Metoden som körs när fetch i JS körs så hämtar metoden notiserna och returnerar PartialView.
     public async Task<IActionResult> Dropdown() 
     {
-        //Här ska det riktiga userId från claims när userService är klart
-        var userId = 1;
+        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
         
         var notifications = await _notificationService.GetUserNotificationsAsync(userId);
         return PartialView("_NotificationDropdown", notifications);

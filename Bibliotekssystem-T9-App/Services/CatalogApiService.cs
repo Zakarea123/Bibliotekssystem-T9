@@ -5,10 +5,12 @@ namespace Bibliotekssystem_T9_App.Services;
 public class CatalogApiService
 {
     private readonly HttpClient _client;
+    private readonly string _apiKey;
 
-    public CatalogApiService(IHttpClientFactory clientFactory)
+    public CatalogApiService(IHttpClientFactory clientFactory, IConfiguration config)
     {
         _client = clientFactory.CreateClient("CatalogService");
+        _apiKey = config["CatalogService:ApiKey"] ?? "";
     }
 
     public async Task<List<Item>> GetItemsAsync()
@@ -28,19 +30,27 @@ public class CatalogApiService
 
     public async Task CreateItemAsync(Item item)
     {
-        var response = await _client.PostAsJsonAsync("api/Items", item);
+        var request = new HttpRequestMessage(HttpMethod.Post, "api/Items");
+        request.Headers.Add("X-Api-Key", _apiKey);
+        request.Content = JsonContent.Create(item);
+        var response = await _client.SendAsync(request);
         response.EnsureSuccessStatusCode();
     }
 
     public async Task UpdateItemAsync(int id, Item item)
     {
-        var response = await _client.PutAsJsonAsync($"api/Items/{id}", item);
+        var request = new HttpRequestMessage(HttpMethod.Put, $"api/Items/{id}");
+        request.Headers.Add("X-Api-Key", _apiKey);
+        request.Content = JsonContent.Create(item);
+        var response = await _client.SendAsync(request);
         response.EnsureSuccessStatusCode();
     }
 
     public async Task DeleteItemAsync(int id)
     {
-        var response = await _client.DeleteAsync($"api/Items/{id}");
+        var request = new HttpRequestMessage(HttpMethod.Delete, $"api/Items/{id}");
+        request.Headers.Add("X-Api-Key", _apiKey);
+        var response = await _client.SendAsync(request);
         response.EnsureSuccessStatusCode();
     }
 

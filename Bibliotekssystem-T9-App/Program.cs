@@ -16,6 +16,19 @@ builder.Services.AddHttpClient("LoanService", client =>
 // Registers LoanApiService for dependency injection.
 builder.Services.AddScoped<LoanApiService>();
 
+// Register Httpclient for NotificationService
+builder.Services.AddHttpClient("NotificationService", client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["ApiUrls:NotificationService"]!);
+});
+
+// Registers NotificationApiService for dependency injection
+builder.Services.AddScoped<NotificationApiService>();
+
+
+
+
+
 // Cookie Authentication
 builder.Services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

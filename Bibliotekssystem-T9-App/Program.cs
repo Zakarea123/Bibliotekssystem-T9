@@ -16,6 +16,14 @@ builder.Services.AddHttpClient("LoanService", client =>
 // Registera LoanApiService för dependency injection.
 builder.Services.AddScoped<LoanApiService>();
 
+//Registrera HttpClient för CatalogService
+builder.Services.AddHttpClient("CatalogService", client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["ApiUrls:CatalogService"]!);
+});
+
+builder.Services.AddScoped<CatalogApiService>();
+
 // Cookie-Autentisering
 builder.Services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

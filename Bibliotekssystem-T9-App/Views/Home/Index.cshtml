@@ -1,85 +1,79 @@
-﻿@{
+@{
     ViewData["Title"] = "Home Page";
     var isAdmin = User.IsInRole("Admin");
 }
 
-@section Styles {
-    <link rel="stylesheet" href="~/css/home.css" asp-append-version="true" />
-}
+<div class="home-stage">
+    <main class="panel">
+        @if (isAdmin)
+        {
+            <h1 class="panel-title">Välkommen<br />admin!</h1>
 
-<div class="landing-shell @(isAdmin ? "landing-shell-admin" : "landing-shell-user")">
-    <div class="landing-bookshelf">
-        <main class="landing-card">
-            @if (isAdmin)
-            {
-                <h1 class="landing-title">Välkommen<br />admin!</h1>
+            <section class="action-row" aria-label="Adminåtgärder">
+                <a asp-controller="Admin" asp-action="Index" class="action-tile action-tile-admin">
+                    <div class="tile-icon">
+                        <img src="~/images/BorrowBooks.png" alt="Hantera användare ikon">
+                    </div>
+                    <div class="tile-label">Hantera användare</div>
+                </a>
 
-                <section class="landing-actions" aria-label="Adminåtgärder">
-                    <a asp-controller="Admin" asp-action="Index" class="landing-tile landing-tile-admin">
-                        <div class="landing-tile-icon">
-                            <img src="~/images/BorrowBooks.png" alt="Hantera användare ikon">
-                            </div>
-                            <div class="landing-tile-label">Hantera användare</div>
-                        </a>
+                <button class="action-tile action-tile-admin" type="button">
+                    <div class="tile-icon">
+                        <img src="~/images/ReturnBook.png" alt="Hantera objekt ikon">
+                    </div>
+                    <div class="tile-label">Hantera objekt</div>
+                </button>
 
-                        <button class="landing-tile landing-tile-admin" type="button">
-                            <div class="landing-tile-icon">
-                                <img src="~/images/ReturnBook.png" alt="Hantera objekt ikon">
-                                </div>
-                                <div class="landing-tile-label">Hantera objekt</div>
-                            </button>
+                <button class="action-tile action-tile-admin" type="button">
+                    <div class="tile-icon">
+                        <img src="~/images/Mybooks.png" alt="Övrigt ikon">
+                    </div>
+                    <div class="tile-label">Övrigt</div>
+                </button>
+            </section>
 
-                            <button class="landing-tile landing-tile-admin" type="button">
-                                <div class="landing-tile-icon">
-                                    <img src="~/images/Mybooks.png" alt="Övrigt ikon">
-                                    </div>
-                                    <div class="landing-tile-label">Övrigt</div>
-                                </button>
-                            </section>
+            <div class="info-callout" aria-label="Admininformation">
+                <div class="callout-notch" aria-hidden="true"></div>
+                <div class="callout-body">
+                    <div>Inkomna returer: <strong>2 st</strong></div>
+                    <div>Saknade objekt: <strong>1 st</strong></div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <h1 class="panel-title">Välkommen<br />användare!</h1>
 
-                            <section class="landing-callout" aria-label="Admininformation">
-                                <div class="landing-callout-notch" aria-hidden="true"></div>
-                                <div class="landing-callout-body">
-                                    <div>Inkomna returer: <strong>2 st</strong></div>
-                                    <div>Saknade objekt: <strong>1 st</strong></div>
-                                </div>
-                            </section>
-                        }
-            else
-                        {
-                            <h1 class="landing-title">Välkommen<br />användare!</h1>
+            <section class="action-row" aria-label="Snabbåtgärder">
+                <button class="action-tile" type="button">
+                    <div class="tile-icon">
+                        <img src="~/images/BorrowBooks.png" alt="Låna ikon">
+                    </div>
+                    <div class="tile-label">Låna objekt</div>
+                </button>
 
-                            <section class="landing-actions" aria-label="Snabbåtgärder">
-                                <button class="landing-tile" type="button">
-                                    <div class="landing-tile-icon">
-                                        <img src="~/images/BorrowBooks.png" alt="Låna ikon">
-                                        </div>
-                                        <div class="landing-tile-label">Låna objekt</div>
-                                    </button>
+                <button class="action-tile" type="button">
+                    <div class="tile-icon">
+                        <img src="~/images/ReturnBook.png" alt="Returnera ikon">
+                    </div>
+                    <div class="tile-label">Returnera objekt</div>
+                </button>
 
-                                    <button class="landing-tile" type="button">
-                                        <div class="landing-tile-icon">
-                                            <img src="~/images/ReturnBook.png" alt="Returnera ikon">
-                                            </div>
-                                            <div class="landing-tile-label">Returnera objekt</div>
-                                        </button>
+                <a asp-controller="Loans" asp-action="Index" class="action-tile">
+                    <div class="tile-icon">
+                        <img src="~/images/Mybooks.png" alt="Mina lån ikon">
+                    </div>
+                    <div class="tile-label">Mina lån</div>
+                </a>
+            </section>
 
-                                        <a asp-controller="Loans" asp-action="Index" class="landing-tile">
-                                            <div class="landing-tile-icon">
-                                                <img src="~/images/Mybooks.png" alt="Mina lån ikon">
-                                                </div>
-                                                <div class="landing-tile-label">Mina lån</div>
-                                            </a>
-                                        </section>
-
-                                        <section class="landing-callout" aria-label="Låneinformation">
-                                            <div class="landing-callout-notch" aria-hidden="true"></div>
-                                            <div class="landing-callout-body">
-                                                <div>Aktiva lån: <strong>X</strong></div>
-                                                <div>Nästa återlämning: <strong>X Månad</strong></div>
-                                            </div>
-                                        </section>
-                                    }
-                                </main>
-                            </div>
-                        </div>
+            <div class="info-callout" aria-label="Låneinformation">
+                <div class="callout-notch" aria-hidden="true"></div>
+                <div class="callout-body">
+                    <div>Aktiva lån: <strong>@(ViewBag.ActiveLoans ?? "—")</strong></div>
+                    <div>Nästa återlämning: <strong>@(ViewBag.NextReturn ?? "—")</strong></div>
+                </div>
+            </div>
+        }
+    </main>
+</div>

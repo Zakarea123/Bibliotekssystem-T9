@@ -1,7 +1,7 @@
 ﻿@{
     var controller = ViewContext.RouteData.Values["controller"]?.ToString();
     var action = ViewContext.RouteData.Values["action"]?.ToString();
-    var isAdminPage = string.Equals(controller, "Admin", StringComparison.OrdinalIgnoreCase);
+    var isAdminPage = User.IsInRole("Admin");
 }
 
 <!DOCTYPE html>

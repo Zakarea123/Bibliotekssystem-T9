@@ -90,6 +90,14 @@ body {
     background: #8a5945;
 }
 
+.action-tile-admin {
+    background: #004f63;
+}
+
+.action-tile-admin:hover {
+    background: #003f4f;
+}
+
 .tile-label {
     font-size: 13px;
     font-weight: 500;
@@ -224,14 +232,14 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    background: transparent;
-    border: none;
-    padding: 0;
+    background: black;
+    border: solid;
+    padding: 7px;
     color: #ffffff;
     font-size: 1rem;
     font-weight: 100;
-    cursor: pointer;
-    transition: color 0.2s ease, transform 0.15s ease;
+    border-radius: 15px;
+
 }
 
 .logout-icon {
@@ -239,14 +247,11 @@ body {
 }
 
 .logout:hover {
-    color: #f0c9c2;
+    background: dimgray;
+    color: #070707;
     transform: translateY(-1px);
+    text-decoration: none;
 }
-
-    .logout:hover span:last-child {
-        text-decoration: underline;
-        text-underline-offset: 3px;
-    }
 
 .admin-shell-layout {
     background: #6C1106;

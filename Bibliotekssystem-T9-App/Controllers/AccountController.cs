@@ -43,6 +43,7 @@ public class AccountController : Controller
 
         var claims = new List<Claim>
         {
+            new(ClaimTypes.NameIdentifier, user.Id.ToString()),
             new(ClaimTypes.Name, user.Email),
             new(ClaimTypes.Role, user.Role)
         };

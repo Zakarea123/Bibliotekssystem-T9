@@ -1,0 +1,44 @@
+﻿@model Bibliotekssystem_T9_App.Models.Item
+@{
+    ViewData["Title"] = "Lägg till objekt";
+}
+
+<div class="home-stage">
+    <main class="panel loans-panel">
+
+        <div class="panel-topbar">
+            <a asp-controller="Catalog" asp-action="Index" class="back-btn">← Tillbaka</a>
+        </div>
+
+        <h1 class="panel-title">Lägg till objekt</h1>
+
+        <form asp-action="Create" method="post">
+            <input type="hidden" asp-for="Id" value="0" />
+            <input type="hidden" asp-for="ItemType" value="" />
+            <div>
+                <label asp-for="Title">Titel</label>
+                <input asp-for="Title" class="form-control" required/>
+            </div>
+            <div>
+                <label asp-for="Description">Beskrivning</label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+            </div>
+            <div>
+                <label asp-for="Identifier">Identifierare (ISBN / inventarienr)</label>
+                <input asp-for="Identifier" class="form-control"/>
+            </div>
+            <div>
+                <label asp-for="ItemTypeId">Kategori</label>
+                <select asp-for="ItemTypeId" class="form-control"
+                        asp-items="@(new SelectList(ViewBag.ItemTypes, "Id", "Name"))">
+                    <option value="">– Välj kategori –</option>
+                </select>
+            </div>
+            <div>
+                <label asp-for="IsActive">Tillgänglig</label>
+                <input asp-for="IsActive" type="checkbox"/>
+            </div>
+            <button type="submit" class="history-btn">Spara</button>
+        </form>
+    </main>
+</div>

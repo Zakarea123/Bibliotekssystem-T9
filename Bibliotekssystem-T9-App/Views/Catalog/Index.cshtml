@@ -1,0 +1,68 @@
+﻿@model List<Bibliotekssystem_T9_App.Models.Item>
+@{
+    ViewData["Title"] = "Katalog";
+}
+
+<div class="home-stage">
+    <main class="panel loans-panel">
+
+        <div class="panel-topbar">
+            <a asp-controller="Home" asp-action="Index" class="back-btn">← Tillbaka</a>
+            @if (User.Identity!.IsAuthenticated)
+            {
+                <a asp-controller="Catalog" asp-action="Create" class="history-btn">+ Lägg till objekt</a>
+            }
+        </div>
+
+        <h1 class="panel-title">Katalog</h1>
+
+        <div class="loans-summary">
+            <div class="summary-chip">Totalt: <strong>@Model.Count</strong></div>
+            <div class="summary-chip">Tillgängliga: <strong>@Model.Count(i => i.IsActive)</strong></div>
+        </div>
+
+        @if (!Model.Any())
+        {
+            <p class="no-loans-msg">Inga objekt i katalogen</p>
+        }
+        else
+        {
+            <div class="loans-table-wrapper">
+                <table class="loans-table">
+                    <thead>
+                        <tr>
+                            <th>Titel</th>
+                            <th>Typ</th>
+                            <th>Identifierare</th>
+                            <th>Status</th>
+                            <th>Åtgärder</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Title</td>
+                                <td>@item.ItemType</td>
+                                <td>@item.Identifier</td>
+                                <td>
+                                    <span class="status-badge @(item.IsActive ? "status-active" : "status-overdue")">
+                                        @(item.IsActive ? "Tillgänglig" : "Ej tillgänglig")
+                                    </span>
+                                </td>
+                                <td>
+                                    <a asp-action="Details" asp-route-id="@item.Id">Detaljer</a>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <a asp-action="Edit" asp-route-id="@item.Id">Redigera</a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id">Ta bort</a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </main>
+</div>

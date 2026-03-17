@@ -1,0 +1,296 @@
+﻿.admin-page {
+    padding: 0.2rem 0.35rem 0.35rem;
+}
+
+.admin-frame {
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    height: calc(100vh - 82px);
+    background: #6C1106;
+    overflow: hidden;
+    width: min(80vw, 1700px);
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+.admin-sidebar {
+    background: #d8d8d8;
+    /*background: rgba(255, 255, 255, 0.74);*/
+    backdrop-filter: blur(4px);
+    padding: 1.2rem 0.8rem 0.9rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.admin-stage {
+    background:
+        linear-gradient(rgba(255,255,255,0.06), rgba(255,255,255,0.06)),
+        url('/images/library.jpg') center/cover no-repeat;
+    padding: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 0;
+}
+
+.sidebar-title {
+    text-align: center;
+    font-size: 2.1rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+    .sidebar-title::after {
+        content: "";
+        display: block;
+        width: 95px;
+        height: 1px;
+        background: #b07a70;
+        margin: 1rem auto 0;
+    }
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.sidebar-link {
+    display: block;
+    padding: 0.75rem 0.85rem;
+    border: 1px solid #ad665b;
+    border-radius: 10px;
+    color: #8a2d20;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.55);
+    font-size: 0.92rem;
+    line-height: 1.15;
+    transition: 0.2s ease;
+}
+
+    .sidebar-link span {
+        display: block;
+    }
+
+    .sidebar-link:hover,
+    .sidebar-link.active {
+        background: #ab5b4d;
+        color: #fff;
+    }
+
+.back-link {
+    display: block;
+    text-align: center;
+    color: #8a2d20;
+    text-decoration: none;
+    font-size: 1rem;
+    margin-top: 2rem;
+}
+
+.admin-stage {
+    background: linear-gradient(rgba(255,255,255,0.08), rgba(255,255,255,0.08)), url('/images/library.jpg') center/cover no-repeat;
+    padding: 3rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-card {
+    width: min(100%, 920px);
+    background: rgba(255, 255, 255, 0.78);
+    backdrop-filter: blur(4px);
+    border-radius: 16px;
+    padding: 1.1rem 1.25rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    height: 100%;
+}
+
+.admin-card-header {
+    text-align: center;
+    margin-bottom: 0.75rem;
+}
+
+    .admin-card-header h1 {
+        margin: 0;
+        font-size: clamp(2rem, 3vw, 3rem);
+        line-height: 1.05;
+        color: #18233a;
+        font-weight: 800;
+    }
+
+    .admin-card-header p {
+        margin-top: 0.3rem;
+        color: #2f3640;
+        font-size: 1rem;
+    }
+
+.admin-toolbar {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.75rem;
+    align-items: center;
+    margin-bottom: 0.85rem;
+}
+
+.search-form {
+    flex: 1;
+    max-width: 360px;
+}
+
+    .search-form input {
+        width: 100%;
+        height: 36px;
+        border: 1px solid #d8d8d8;
+        border-radius: 10px;
+        padding: 0 1rem;
+        font-size: 1rem;
+        background: rgba(255, 255, 255, 0.95);
+        box-sizing: border-box;
+    }
+        .search-form input:focus {
+            outline: none;
+            border-color: #0b6a84;
+            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.05);
+        }
+
+.create-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    max-height: 36px;
+    padding: 0.7rem 1rem;
+    border-radius: 10px;
+    background: #045b73;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    border: none;
+}
+
+    .create-btn:hover {
+        background: #03495c;
+        color: #fff;
+    }
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: auto;
+    min-height: 0;
+    flex: 1;
+}
+
+.users-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.72);
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 0.96rem;
+}
+
+    .users-table thead th {
+        text-align: left;
+        padding: 0.65rem 0.65rem;
+        color: #222;
+        font-weight: 700;
+        border-bottom: 1px solid rgba(0,0,0,0.08);
+        background: rgba(255, 255, 255, 0.5);
+    }
+
+    .users-table tbody td {
+        padding: 0.65rem 0.65rem;
+        color: #333;
+        border-bottom: 1px solid rgba(0,0,0,0.08);
+        vertical-align: middle;
+    }
+
+    .users-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+.action-cell {
+    white-space: nowrap;
+}
+
+.inline-form {
+    display: inline-block;
+    margin-left: 0.35rem;
+}
+
+.edit-btn,
+.delete-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 32px;
+    padding: 0.28rem 0.65rem;
+    border-radius: 6px;
+    background: #fff;
+    font-size: 0.9rem;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.edit-btn {
+    color: #0b6a84;
+    border: 0.5px solid #0b6a84;
+}
+
+.delete-btn {
+    color: #a33a32;
+    border: 0.5px solid #a33a32;
+}
+
+.edit-btn:hover {
+    background: #e8f5f8;
+}
+
+.delete-btn:hover {
+    background: #fdecec;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+}
+
+@media (max-width: 1100px) {
+    .admin-frame {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-sidebar {
+        padding: 2rem 1rem;
+    }
+
+    .admin-stage {
+        padding: 2rem 1rem;
+    }
+
+    .admin-card {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 700px) {
+    .admin-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-form {
+        max-width: 100%;
+    }
+
+    .create-btn {
+        width: 100%;
+    }
+}

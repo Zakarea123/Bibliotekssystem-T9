@@ -1,0 +1,27 @@
+﻿@model Bibliotekssystem_T9_App.Models.Item
+@{
+    ViewData["Title"] = "Ta bort objekt";
+}
+
+<div class="home-stage">
+    <main class="panel loans-panel">
+
+        <div class="panel-topbar">
+            <a asp-controller="Catalog" asp-action="Index" class="back-btn">← Tillbaka</a>
+        </div>
+
+        <h1 class="panel-title">Ta bort objekt</h1>
+
+        <p>Är du säker på att du vill ta bort <strong>@Model.Title</strong>?</p>
+
+        <div class="loans-summary">
+            <div class="summary-chip">Typ: <strong>@Model.ItemType</strong></div>
+            <div class="summary-chip">Identifierare: <strong>@(Model.Identifier ?? "–")</strong></div>
+        </div>
+
+        <form asp-action="Delete" asp-route-id="@Model.Id" method="post">
+            <button type="submit" class="status-badge status-overdue">Ja, ta bort</button>
+            <a asp-action="Index" class="history-btn">Avbryt</a>
+        </form>
+    </main>
+</div>

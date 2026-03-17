@@ -333,5 +333,25 @@ body {
     color: #dc2626;
 }
 .notif-btn-delete:hover {
-    background: #fee2e2;
+    background: dimgray;
+    color: #070707;
+    transform: translateY(-1px);
+    text-decoration: none;
 }
+
+.admin-shell-layout {
+    background: #6C1106;
+    min-height: 100vh;
+}
+
+.admin-topbar-layout {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    /*padding: 0.5rem 1rem 0.25rem;*/
+    background: #6C1106;
+}
+
+
+.admin-topbar-layout .topbar-right {
+    gap: 1.5rem; }

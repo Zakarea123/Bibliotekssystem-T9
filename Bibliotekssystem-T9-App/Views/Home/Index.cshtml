@@ -1,10 +1,48 @@
-﻿@{
+@{
     ViewData["Title"] = "Home Page";
+    var isAdmin = User.IsInRole("Admin");
 }
-    <div class="home-stage">
-        <!-- Center panel -->
-        <main class="panel">
-            <h1 class="panel-title">Välkommen<br/>användare!</h1>
+
+<div class="home-stage">
+    <main class="panel">
+        @if (isAdmin)
+        {
+            <h1 class="panel-title">Välkommen<br />admin!</h1>
+
+            <section class="action-row" aria-label="Adminåtgärder">
+                <a asp-controller="Admin" asp-action="Index" class="action-tile action-tile-admin">
+                    <div class="tile-icon">
+                        <img src="~/images/BorrowBooks.png" alt="Hantera användare ikon">
+                    </div>
+                    <div class="tile-label">Hantera användare</div>
+                </a>
+
+                <a asp-controller="Catalog" asp-action="Index" class="action-tile action-tile-admin">
+                    <div class="tile-icon">
+                        <img src="~/images/ReturnBook.png" alt="Hantera objekt ikon">
+                    </div>
+                    <div class="tile-label">Hantera objekt</div>
+                </a>
+
+                <button class="action-tile action-tile-admin" type="button">
+                    <div class="tile-icon">
+                        <img src="~/images/Mybooks.png" alt="Övrigt ikon">
+                    </div>
+                    <div class="tile-label">Övrigt</div>
+                </button>
+            </section>
+
+            <div class="info-callout" aria-label="Admininformation">
+                <div class="callout-notch" aria-hidden="true"></div>
+                <div class="callout-body">
+                    <div>Inkomna returer: <strong>2 st</strong></div>
+                    <div>Saknade objekt: <strong>1 st</strong></div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <h1 class="panel-title">Välkommen<br />användare!</h1>
 
             <section class="action-row" aria-label="Snabbåtgärder">
                 <button class="action-tile" type="button">
@@ -29,14 +67,13 @@
                 </a>
             </section>
 
-            <section class="info-callout" aria-label="Låneinformation">
+            <div class="info-callout" aria-label="Låneinformation">
                 <div class="callout-notch" aria-hidden="true"></div>
                 <div class="callout-body">
-                    <div>Aktiva lån: <strong>X</strong></div>
-                    <div>Nästa återlämning: <strong>X Månad</strong></div>
+                    <div>Aktiva lån: <strong>@(ViewBag.ActiveLoans ?? "—")</strong></div>
+                    <div>Nästa återlämning: <strong>@(ViewBag.NextReturn ?? "—")</strong></div>
                 </div>
-            </section>
-        </main>
-    </div>
-
-
+            </div>
+        }
+    </main>
+</div>

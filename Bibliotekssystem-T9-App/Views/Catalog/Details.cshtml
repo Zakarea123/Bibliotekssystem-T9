@@ -1,0 +1,33 @@
+﻿@model Bibliotekssystem_T9_App.Models.Item
+@{
+    ViewData["Title"] = "Detaljer";
+}
+
+<div class="home-stage">
+    <main class="panel loans-panel">
+
+        <div class="panel-topbar">
+            <a asp-controller="Catalog" asp-action="Index" class="back-btn">← Tillbaka</a>
+        </div>
+
+        <h1 class="panel-title">@Model.Title</h1>
+
+        <div class="loans-summary">
+            <div class="summary-chip">Typ: <strong>@Model.ItemType</strong></div>
+            <div class="summary-chip">
+                Status:
+                <strong class="status-badge @(Model.IsActive ? "status-active" : "status-overdue")">
+                    @(Model.IsActive ? "Tillgänglig" : "Ej tillgänglig")
+                </strong>
+            </div>
+        </div>
+
+        <p><strong>Beskrivning:</strong> @(Model.Description ?? "Ingen beskrivning")</p>
+        <p><strong>Identifierare:</strong> @(Model.Identifier ?? "–")</p>
+
+        @if (User.Identity!.IsAuthenticated)
+        {
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="history-btn">Redigera</a>
+        }
+    </main>
+</div>

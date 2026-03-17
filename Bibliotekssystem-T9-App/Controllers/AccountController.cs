@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using Bibliotekssystem_T9_App.Dtos;
+using Bibliotekssystem_T9_App.Services;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -7,6 +9,13 @@ namespace Bibliotekssystem_T9_App.Controllers;
 
 public class AccountController : Controller
 {
+    private readonly UserApiService _userApiService;
+
+    public AccountController(UserApiService userApiService)
+    {
+        _userApiService = userApiService;
+    }
+
     [HttpGet]
     public IActionResult Login(string? returnUrl = null)
     {
@@ -17,28 +26,26 @@ public class AccountController : Controller
     [HttpPost]
     public async Task<IActionResult> Login(string email, string password, string? returnUrl = null)
     {
-        // ===== DEMO-KONTON =====
-        var isAdmin =
-            email.Equals("admin@library.local", StringComparison.OrdinalIgnoreCase) &&
-            password == "Admin123!";
+        var loginDto = new LoginRequestDto
+        {
+            Email = email,
+            Password = password
+        };
 
-        var isEmployee =
-            email.Equals("employee@organization.com", StringComparison.OrdinalIgnoreCase) &&
-            password == "Password123!";
+        var user = await _userApiService.LoginAsync(loginDto);
 
-        if (!isAdmin && !isEmployee)
+        if (user is null)
         {
             ViewBag.Error = "Fel e-post eller lösenord.";
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
 
-        var role = isAdmin ? "Admin" : "Employee";
-
         var claims = new List<Claim>
         {
-            new(ClaimTypes.Name, email),
-            new(ClaimTypes.Role, role)
+            new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new(ClaimTypes.Name, user.Email),
+            new(ClaimTypes.Role, user.Role)
         };
 
         var identity = new ClaimsIdentity(
@@ -51,14 +58,12 @@ public class AccountController : Controller
             CookieAuthenticationDefaults.AuthenticationScheme,
             principal);
 
-        // Skicka tillbaka användaren dit den kom ifrån
         if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
             return Redirect(returnUrl);
 
-        // Annars skicka beroende på roll
-        return role == "Admin"
-            ? RedirectToAction("Index", "Admin")
-            : RedirectToAction("Index", "Library");
+        return user.Role == "Admin"
+            ? RedirectToAction("Index", "Home")
+            : RedirectToAction("Index", "Home");
     }
 
     [HttpPost]

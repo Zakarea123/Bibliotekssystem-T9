@@ -1,10 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
     <PropertyGroup>
         <TargetFramework>net10.0</TargetFramework>
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <RootNamespace>Bibliotekssystem_T9_App</RootNamespace>
-    </PropertyGroup>
+      <UserSecretsId>f77ccff0-3c1e-437a-b1a9-1ea2bcf8cf1d</UserSecretsId>
+  </PropertyGroup>
 
 </Project>

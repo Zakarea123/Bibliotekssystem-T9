@@ -1,0 +1,31 @@
+﻿@model List<Bibliotekssystem_T9_App.Models.Notification>
+
+<div class="notif-header">
+    <span>Notiser</span>
+    <span class="notif-count">@Model.Count</span>
+</div>
+@if (!Model.Any())
+{
+    <div class="notif-empty">Inga notiser</div>
+}
+else
+{
+    <ul class="notif-list">
+        @foreach (var n in Model)
+        {
+            <li class="notif-item @(n.IsRead ? "" : "unread")" data-id="@n.Id">
+                <div class="notif-title">@n.Title</div>
+                <div class="notif-message">@n.Message</div>
+                <div class="notif-footer">
+                    <span class="notif-time">@n.CreatedAt.ToString("dd MMM HH:mm")</span>
+                    <div class="notif-actions"> @if (!n.IsRead)
+                                                {
+                                                    <button class="notif-btn-read" onclick="markRead(@n.Id, this)">Markera läst</button>
+                                                }
+                        <button class="notif-btn-delete" onclick ="deleteNotif(@n.Id, this)">Ta bort</button>
+                        </div>
+                </div>
+            </li>
+        }
+    </ul>
+}

@@ -24,6 +24,16 @@ builder.Services.AddHttpClient("CatalogService", client =>
 
 builder.Services.AddScoped<CatalogApiService>();
 
+// Register Httpclient for NotificationService
+builder.Services.AddHttpClient("NotificationService", client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["ApiUrls:NotificationService"]!);
+});
+
+// Registers NotificationApiService for dependency injection
+builder.Services.AddScoped<NotificationApiService>();
+
+
 // Cookie-Autentisering
 builder.Services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

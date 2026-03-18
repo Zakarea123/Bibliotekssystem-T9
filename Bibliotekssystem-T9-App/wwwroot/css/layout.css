@@ -35,7 +35,7 @@ body {
     overflow: hidden;
     position: relative;
     box-shadow: var(--shadow);
-   /* background-image: url("/images/library.jpg");  // Denna funkar inte korrekt?  */ 
+    background-image: url("/images/library.jpg");  // Denna funkar inte korrekt?  
     background-size: cover;
     background-position: center;
 }

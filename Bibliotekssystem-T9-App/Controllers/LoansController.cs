@@ -31,4 +31,26 @@ public class LoansController : Controller
         var history = await _loanApiService.GetBorrowerHistoryAsync(borrowerId);
         return View(history);
     }
+    
+    // Shows active loans with checkboxes for returning
+    [Authorize]
+    public async Task<IActionResult> Return()
+    {
+        var borrowerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        var loans = await _loanApiService.GetBorrowerLoansAsync(borrowerId);
+        return View(loans);
+    }
+    
+    // Handles the return form submission
+    [HttpPost]
+    public async Task<IActionResult> ReturnSelected(List<int> selectedLoanIds)
+    {
+        foreach (var loanId in selectedLoanIds)
+        {
+            await _loanApiService.ReturnLoanAsync(loanId);
+        }
+        return RedirectToAction("Index");
+    }
+
+    
 }

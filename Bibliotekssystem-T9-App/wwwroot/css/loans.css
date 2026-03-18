@@ -159,3 +159,70 @@
     font-weight: 500;
     margin-bottom: 14px;
 }
+
+/* Borrow Page styling */
+
+.row-unavailable {
+    opacity: 0.45;
+}
+
+.borrow-btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+}
+.borrow-btn:hover {
+    background: #8a5945;
+}
+
+/* Inline date picker form */
+.borrow-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+}
+
+.date-input {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 5px 10px;
+    font-size: 13px;
+    outline: none;
+}
+
+.date-input:focus {
+    border-color: var(--accent);
+}
+
+.confirm-btn {
+    background: #1a6630;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 13px;
+    cursor: pointer;
+}
+.confirm-btn:hover {
+    background: #144d24;
+}
+
+.cancel-btn {
+    background: #e2e3e5;
+    color: #41464b;
+    border: none;
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 13px;
+    cursor: pointer;
+}
+.cancel-btn:hover {
+    background: #cacbcd;
+}

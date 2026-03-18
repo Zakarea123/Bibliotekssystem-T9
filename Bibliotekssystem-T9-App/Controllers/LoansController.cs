@@ -82,6 +82,29 @@ public class LoansController : Controller
         TempData["SuccessMessage"] = $"{selectedLoanIds.Count} objekt har returnerats!";
         return RedirectToAction("Index");
     }
+    
+    [Authorize]
+    public async Task<IActionResult> Borrow()
+    {
+        var items = await _catalogApiService.GetItemsAsync();
+        var activeLoans = await _loanApiService.GetActiveLoansAsync();
+
+        // Build a HashSet of borrowed ItemIds ( Faster than list and esaier to track)
+        var borrowedItemIds = activeLoans.Select(l => l.ItemId).ToHashSet();
+        ViewBag.BorrowedItemIds = borrowedItemIds;
+        return View(items);
+    }
+    
+    [HttpPost]
+    public async Task<IActionResult> CreateLoan(int itemId, DateTime dueDate)
+    {
+        var borrowerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+
+        await _loanApiService.CreateLoanAsync(itemId, borrowerId, dueDate);
+
+        TempData["SuccessMessage"] = "Lånet har registrerats!";
+        return RedirectToAction("Borrow");
+    }
 
     
 }

@@ -41,3 +41,8 @@ async function deleteNotif (id, el) {
     const count = panel.querySelectorAll('.notif-item').length;
     panel.querySelector('.notif-count').textContent = count;
 }
+// Toggles the inline date picker form visibility without page refresah
+function toggleDatePicker(itemId) {
+    const form = document.getElementById(`borrow-form-${itemId}`);
+    form.style.display = form.style.display === 'none' ? 'flex' : 'none';
+}

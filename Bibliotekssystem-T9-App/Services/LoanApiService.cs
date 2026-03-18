@@ -35,4 +35,19 @@ public class LoanApiService
         var response = await _client.PutAsync($"api/loans/{loanId}/return", null);
         response.EnsureSuccessStatusCode();
     }
+    
+    // Calls GET {{/api/loans/active}} and returns all active loans
+    public async Task<List<Loan>> GetActiveLoansAsync()
+    {
+        var response = await _client.GetAsync("api/loans/active");
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadFromJsonAsync<List<Loan>>() ?? new List<Loan>();
+    }
+    
+    // Calls POST /api/loans to create a new loan
+    public async Task CreateLoanAsync(int itemId, int borrowerId, DateTime dueDate)
+    {
+        var response = await _client.PostAsJsonAsync("api/loans", new { itemId, borrowerId, dueDate });
+        response.EnsureSuccessStatusCode();
+    }
 }

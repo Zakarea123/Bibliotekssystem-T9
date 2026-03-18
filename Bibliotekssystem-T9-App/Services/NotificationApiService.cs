@@ -10,7 +10,7 @@ public class NotificationApiService
   public NotificationApiService(IHttpClientFactory clientFactory, IConfiguration config)
   {
     _client = clientFactory.CreateClient("NotificationService");
-    _apiKey = config["ApiKeys:NotificationService"] ?? string.Empty;
+    _apiKey = config["NotificationService:ApiKey"] ?? string.Empty;
   }
 
   public async Task<List<Notification>> GetUserNotificationsAsync(int userId)

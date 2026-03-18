@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Returnera objekt";
+    var itemTitles = ViewBag.ItemTitles as Dictionary<int, string> ?? new Dictionary<int, string>();
 }
 
 <link rel="stylesheet" href="~/css/loans.css" />
@@ -40,8 +41,7 @@
                                 <td>
                                     <input type="checkbox" name="selectedLoanIds" value="@loan.Id" class="loan-checkbox" />
                                 </td>
-                                <!-- TODO: Replace ItemId with actual item title from LibraryCatalogService -->
-                                <td>@loan.ItemId</td>
+                                <td>@(itemTitles != null && itemTitles.ContainsKey(loan.ItemId) ? itemTitles[loan.ItemId] : loan.ItemId.ToString())</td>
                                 <td>@loan.LoanDate.ToString("yyyy-MM-dd")</td>
                                 <td>@loan.DueDate.ToString("yyyy-MM-dd")</td>
                                 <td>

@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Lånehistorik";
+    var itemTitles = ViewBag.ItemTitles as Dictionary<int, string> ?? new Dictionary<int, string>();
 }
 
 <link rel="stylesheet" href="~/css/loans.css" />
@@ -42,8 +43,7 @@
                     @foreach (var loan in Model)
                     {
                         <tr>
-                            <!-- TODO: Replace ItemId with actual item title from LibraryCatalogService once catalog integration is done -->
-                            <td>@loan.ItemId</td>
+                            <td>@(itemTitles.ContainsKey(loan.ItemId) ? itemTitles[loan.ItemId] : loan.ItemId.ToString())</td>
                             <td>@loan.LoanDate.ToString("yyyy-MM-dd")</td>
                             <td>@loan.DueDate.ToString("yyyy-MM-dd")</td>
                             <td>@(loan.ReturnDate.HasValue ? loan.ReturnDate.Value.ToString("yyyy-MM-dd") : "-")</td>

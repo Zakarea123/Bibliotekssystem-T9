@@ -49,6 +49,7 @@ public class LoansController : Controller
         {
             await _loanApiService.ReturnLoanAsync(loanId);
         }
+        TempData["SuccessMessage"] = $"{selectedLoanIds.Count} objekt har returnerats!";
         return RedirectToAction("Index");
     }
 

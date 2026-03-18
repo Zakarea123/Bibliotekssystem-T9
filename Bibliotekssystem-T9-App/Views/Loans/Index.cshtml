@@ -11,6 +11,13 @@
                 <a asp-controller="Home" asp-action="Index" class="back-btn">← Tillbaka</a>
                 <a asp-controller="Loans" asp-action="History" class="history-btn">Se historik →</a>
             </div>
+            
+            @if (TempData["SuccessMessage"] != null)
+            {
+                <div class="success-toast">
+                    ✅ @TempData["SuccessMessage"]
+                </div>
+            }
 
             <h1 class="panel-title">Mina lån</h1>
 

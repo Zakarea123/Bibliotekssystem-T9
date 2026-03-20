@@ -17,7 +17,7 @@ public class CatalogController : Controller
     }
 
     //GET: Visar alla objekt i katalogen med tillgänglighetsstatus från LoanService
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(string? searchTerm)
     {
         var items = await _catalogApiService.GetItemsAsync();
         var activeLoans = await _loanApiService.GetActiveLoansAsync();
@@ -26,6 +26,13 @@ public class CatalogController : Controller
         foreach (var item in items)
         {
             item.IsActive = !loanedItemIds.Contains(item.Id);
+        }
+
+        if (!string.IsNullOrWhiteSpace(searchTerm))
+        {
+            items = items
+                .Where(i => i.Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
+                .ToList();
         }
         return View(items);
     }

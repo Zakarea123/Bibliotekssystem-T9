@@ -40,11 +40,12 @@
                 </div>
 
                 <div class="admin-toolbar">
-                    <div class="loans-summary">
-                        <span>Totalt: <strong>@Model.Count</strong></span>
-                        &nbsp;|&nbsp;
-                        <span>Tillgängliga: <strong>@Model.Count(i => i.IsActive)</strong></span>
-                    </div>
+                    <form method="get" asp-action="Index" asp-controller="Catalog" class="search-form">
+                        <input type="text"
+                               name="searchTerm"
+                               value="@Context.Request.Query["searchTerm"]"
+                               placeholder="Sök efter objekt" />
+                    </form>
 
                     @if (User.Identity!.IsAuthenticated)
                     {
@@ -52,6 +53,12 @@
                             + Lägg till objekt
                         </a>
                     }
+                </div>
+
+                <div class="loans-summary" style="margin-bottom: 0.85rem;">
+                    <span>Totalt: <strong>@Model.Count</strong></span>
+                    &nbsp;|&nbsp;
+                    <span>Tillgängliga: <strong>@Model.Count(i => i.IsActive)</strong></span>
                 </div>
 
                 <div class="table-wrapper">

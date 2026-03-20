@@ -24,6 +24,15 @@ builder.Services.AddHttpClient("CatalogService", client =>
 
 builder.Services.AddScoped<CatalogApiService>();
 
+// Registrera HttpClient för ReviewService
+builder.Services.AddHttpClient<ReviewApiService>(client =>
+{
+    client.BaseAddress = new Uri(builder.Configuration["ApiUrls:BookReview"]);
+});
+
+// Registrera ReviewApiService
+builder.Services.AddScoped<ReviewApiService>();
+
 // Register Httpclient for NotificationService
 builder.Services.AddHttpClient("NotificationService", client =>
 {

@@ -34,10 +34,9 @@
                     <option value="">– Välj kategori –</option>
                 </select>
             </div>
-            <div>
-                <label asp-for="IsActive">Tillgänglig</label>
-                <input asp-for="IsActive" type="checkbox"/>
-            </div>
+            
+            <input type="hidden" asp-for="IsActive" value="true" />
+            
             <button type="submit" class="history-btn">Spara</button>
         </form>
     </main>

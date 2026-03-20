@@ -1,68 +1,117 @@
 ﻿@model List<Bibliotekssystem_T9_App.Models.Item>
 @{
-    ViewData["Title"] = "Katalog";
+    ViewData["Title"] = "Hantera katalog";
 }
 
-<div class="home-stage">
-    <main class="panel loans-panel">
+@section Styles {
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+}
 
-        <div class="panel-topbar">
-            <a asp-controller="Home" asp-action="Index" class="back-btn">← Tillbaka</a>
-            @if (User.Identity!.IsAuthenticated)
-            {
-                <a asp-controller="Catalog" asp-action="Create" class="history-btn">+ Lägg till objekt</a>
-            }
-        </div>
+<div class="admin-page">
+    <div class="admin-frame">
+        <aside class="admin-sidebar">
+            <div>
+                <h2 class="sidebar-title">Meny</h2>
 
-        <h1 class="panel-title">Katalog</h1>
+                <nav class="sidebar-nav">
+                    <a asp-controller="Admin" asp-action="Index" class="sidebar-link">
+                        Hantera användare
+                    </a>
 
-        <div class="loans-summary">
-            <div class="summary-chip">Totalt: <strong>@Model.Count</strong></div>
-            <div class="summary-chip">Tillgängliga: <strong>@Model.Count(i => i.IsActive)</strong></div>
-        </div>
+                    <a asp-controller="Catalog" asp-action="Index" class="sidebar-link active">
+                        Hantera katalog
+                    </a>
 
-        @if (!Model.Any())
-        {
-            <p class="no-loans-msg">Inga objekt i katalogen</p>
-        }
-        else
-        {
-            <div class="loans-table-wrapper">
-                <table class="loans-table">
-                    <thead>
-                        <tr>
-                            <th>Titel</th>
-                            <th>Typ</th>
-                            <th>Identifierare</th>
-                            <th>Status</th>
-                            <th>Åtgärder</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>@item.Title</td>
-                                <td>@item.ItemType</td>
-                                <td>@item.Identifier</td>
-                                <td>
-                                    <span class="status-badge @(item.IsActive ? "status-active" : "status-overdue")">
-                                        @(item.IsActive ? "Tillgänglig" : "Ej tillgänglig")
-                                    </span>
-                                </td>
-                                <td>
-                                    <a asp-action="Details" asp-route-id="@item.Id">Detaljer</a>
-                                    @if (User.Identity.IsAuthenticated)
-                                    {
-                                        <a asp-action="Edit" asp-route-id="@item.Id">Redigera</a>
-                                        <a asp-action="Delete" asp-route-id="@item.Id">Ta bort</a>
-                                    }
-                                </td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                    <a href="#" class="sidebar-link">
+                        Hantera utlåningsstatus
+                        <span>och påminnelser</span>
+                    </a>
+                </nav>
             </div>
-        }
-    </main>
+
+            <a asp-controller="Home" asp-action="Index" class="back-link">Till start</a>
+        </aside>
+
+        <section class="admin-stage">
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h1>Hantera katalog</h1>
+                    <p>Inloggad som <strong>@User.Identity?.Name</strong></p>
+                </div>
+
+                <div class="admin-toolbar">
+                    <form method="get" asp-action="Index" asp-controller="Catalog" class="search-form">
+                        <input type="text"
+                               name="searchTerm"
+                               value="@Context.Request.Query["searchTerm"]"
+                               placeholder="Sök efter objekt" />
+                    </form>
+
+                    @if (User.Identity!.IsAuthenticated)
+                    {
+                        <a asp-action="Create" asp-controller="Catalog" class="create-btn">
+                            + Lägg till objekt
+                        </a>
+                    }
+                </div>
+
+                <div class="loans-summary" style="margin-bottom: 0.85rem;">
+                    <span>Totalt: <strong>@Model.Count</strong></span>
+                    &nbsp;|&nbsp;
+                    <span>Tillgängliga: <strong>@Model.Count(i => i.IsActive)</strong></span>
+                </div>
+
+                <div class="table-wrapper">
+                    <table class="users-table">
+                        <thead>
+                            <tr>
+                                <th>Titel</th>
+                                <th>Typ</th>
+                                <th>Identifierare</th>
+                                <th>Status</th>
+                                <th>Åtgärder</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (Model.Any())
+                            {
+                                foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@item.Title</td>
+                                        <td>@item.ItemType</td>
+                                        <td>@item.Identifier</td>
+                                        <td>
+                                            <span class="status-badge @(item.IsActive ? "status-active" : "status-overdue")">
+                                                @(item.IsActive ? "Tillgänglig" : "Ej tillgänglig")
+                                            </span>
+                                        </td>
+                                        <td class="action-cell">
+                                            <a asp-action="Details" asp-route-id="@item.Id" class="edit-btn">Detaljer</a>
+                                            @if (User.Identity.IsAuthenticated)
+                                            {
+                                                <a asp-action="Edit" asp-route-id="@item.Id" class="edit-btn">Redigera</a>
+                                                <form asp-action="Delete" asp-controller="Catalog" method="post" class="inline-form"
+                                                      onsubmit="return confirm('Vill du verkligen ta bort objektet?');">
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="hidden" name="id" value="@item.Id" />
+                                                    <button type="submit" class="delete-btn">Ta bort</button>
+                                                </form>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td colspan="5" class="empty-state">Inga objekt i katalogen.</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
 </div>

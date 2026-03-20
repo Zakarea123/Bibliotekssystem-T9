@@ -8,16 +8,32 @@ namespace Bibliotekssystem_T9_App.Controllers;
 public class CatalogController : Controller
 {
     private readonly CatalogApiService _catalogApiService;
+    private readonly LoanApiService _loanApiService;
 
-    public CatalogController(CatalogApiService catalogApiService)
+    public CatalogController(CatalogApiService catalogApiService, LoanApiService loanApiService)
     {
         _catalogApiService = catalogApiService;
+        _loanApiService = loanApiService;
     }
 
-    //GET: Visar alla objekt i katalogen
-    public async Task<IActionResult> Index()
+    //GET: Visar alla objekt i katalogen med tillgänglighetsstatus från LoanService
+    public async Task<IActionResult> Index(string? searchTerm)
     {
         var items = await _catalogApiService.GetItemsAsync();
+        var activeLoans = await _loanApiService.GetActiveLoansAsync();
+        var loanedItemIds = activeLoans.Select(l => l.ItemId).ToHashSet();
+
+        foreach (var item in items)
+        {
+            item.IsActive = !loanedItemIds.Contains(item.Id);
+        }
+
+        if (!string.IsNullOrWhiteSpace(searchTerm))
+        {
+            items = items
+                .Where(i => i.Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+        }
         return View(items);
     }
 
@@ -42,6 +58,7 @@ public class CatalogController : Controller
     [HttpPost]
     public async Task<IActionResult> Create(Item item)
     {
+        item.IsActive = true; //Varje nytt skapat objekt får status tillgängligt per automatik
         await _catalogApiService.CreateItemAsync(item);
         return RedirectToAction(nameof(Index));
     }

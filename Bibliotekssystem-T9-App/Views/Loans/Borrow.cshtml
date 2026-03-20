@@ -1,0 +1,76 @@
+@model List<Bibliotekssystem_T9_App.Models.Item>
+
+@{
+    ViewData["Title"] = "Låna objekt";
+    var borrowedItemIds = ViewBag.BorrowedItemIds as HashSet<int> ?? new HashSet<int>();
+    // Get current day and set max loan days to two weeks
+    var today = DateTime.Now.ToString("yyyy-MM-dd");
+    var maxDate = DateTime.Now.AddDays(14).ToString("yyyy-MM-dd");
+}
+
+<div class="home-stage">
+    <main class="panel loans-panel">
+
+        <div class="panel-topbar">
+            <a asp-controller="Home" asp-action="Index" class="back-btn">← Tillbaka</a>
+        </div>
+
+        <h1 class="panel-title">Låna objekt</h1>
+
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="success-toast">✅ @TempData["SuccessMessage"]</div>
+        }
+
+        @if (!Model.Any())
+        {
+            <p class="no-loans-msg">Inga objekt tillgängliga just nu</p>
+        }
+        else
+        {
+            <div class="loans-table-wrapper">
+                <table class="loans-table">
+                    <thead>
+                        <tr>
+                            <th>Titel</th>
+                            <th>Typ</th>
+                            <th>Status</th>
+                            <th>Åtgärd</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var item in Model)
+                    {
+                        var isAvailable = !borrowedItemIds.Contains(item.Id);
+                        <tr class="@(!isAvailable ? "row-unavailable" : "")">
+                            <td>@item.Title</td>
+                            <td>@item.ItemType</td>
+                            <td>
+                                <span class="status-badge @(isAvailable ? "status-active" : "status-overdue")">
+                                    @(isAvailable ? "Tillgänglig" : "Utlånad")
+                                </span>
+                            </td>
+                            <td>
+                                @if (isAvailable)
+                                {
+                                    <button class="borrow-btn" onclick="toggleDatePicker(@item.Id)">Låna</button>
+                                    <form asp-action="CreateLoan" asp-controller="Loans" method="post" 
+                                          id="borrow-form-@item.Id" class="borrow-form" style="display:none;">
+                                        <input type="hidden" name="itemId" value="@item.Id" />
+                                        <input type="date" name="dueDate" 
+                                               min="@today" max="@maxDate" 
+                                               required class="date-input" />
+                                        <button type="submit" class="confirm-btn">Bekräfta</button>
+                                        <button type="button" class="cancel-btn" onclick="toggleDatePicker(@item.Id)">Avbryt</button>
+                                    </form>
+                                }
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </main>
+</div>
+<script src="~/js/site.js" asp-append-version="true"></script>

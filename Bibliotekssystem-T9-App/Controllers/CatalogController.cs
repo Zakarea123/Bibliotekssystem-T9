@@ -51,6 +51,7 @@ public class CatalogController : Controller
     [HttpPost]
     public async Task<IActionResult> Create(Item item)
     {
+        item.IsActive = true; //Varje nytt skapat objekt får status tillgängligt per automatik
         await _catalogApiService.CreateItemAsync(item);
         return RedirectToAction(nameof(Index));
     }

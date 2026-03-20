@@ -45,19 +45,19 @@
             <h1 class="panel-title">Välkommen<br />användare!</h1>
 
             <section class="action-row" aria-label="Snabbåtgärder">
-                <button class="action-tile" type="button">
+                <a asp-controller="Loans" asp-action="Borrow" class="action-tile">
                     <div class="tile-icon">
                         <img src="~/images/BorrowBooks.png" alt="Låna ikon">
                     </div>
                     <div class="tile-label">Låna objekt</div>
-                </button>
+                </a>
 
-                <button class="action-tile" type="button">
+                <a asp-controller="Loans" asp-action="Return" class="action-tile">
                     <div class="tile-icon">
                         <img src="~/images/ReturnBook.png" alt="Returnera ikon">
                     </div>
                     <div class="tile-label">Returnera objekt</div>
-                </button>
+                </a>
 
                 <a asp-controller="Loans" asp-action="Index" class="action-tile">
                     <div class="tile-icon">

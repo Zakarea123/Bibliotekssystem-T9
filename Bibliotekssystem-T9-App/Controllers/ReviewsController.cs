@@ -20,13 +20,13 @@ public class ReviewsController : Controller
         return View(reviews);
     }
 
-    // CREATE (GET)
+    // Create GET
     public IActionResult Create()
     {
         return View();
     }
 
-    // CREATE (POST)
+    // Create POST
     [HttpPost]
     public async Task<IActionResult> Create(BookReview review)
     {
@@ -38,7 +38,9 @@ public class ReviewsController : Controller
     public async Task<IActionResult> Edit(int id)
     {
         var review = await _reviewService.GetReviewAsync(id);
-        if (review == null) return NotFound();
+
+        if (review == null)
+            return NotFound();
 
         return View(review);
     }
@@ -47,7 +49,11 @@ public class ReviewsController : Controller
     [HttpPost]
     public async Task<IActionResult> Edit(int id, BookReview review)
     {
+        if (id != review.ReviewId)
+            return BadRequest();
+
         await _reviewService.UpdateReviewAsync(review);
+
         return RedirectToAction("Index");
     }
 

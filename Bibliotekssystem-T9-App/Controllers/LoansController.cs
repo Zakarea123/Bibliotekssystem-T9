@@ -9,11 +9,13 @@ public class LoansController : Controller
 {
     private readonly LoanApiService  _loanApiService;
     private readonly CatalogApiService _catalogApiService;
+    private readonly NotificationApiService _notificationApiService;
 
-    public LoansController(LoanApiService loanApiService , CatalogApiService catalogApiService)
+    public LoansController(LoanApiService loanApiService , CatalogApiService catalogApiService, NotificationApiService notificationApiService)
     {
         _loanApiService = loanApiService;
         _catalogApiService = catalogApiService;
+        _notificationApiService = notificationApiService;
     }
     
     // GET: Fetches active loans for the current user from LoanService
@@ -73,12 +75,15 @@ public class LoansController : Controller
     
     // Handles the return form submission
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> ReturnSelected(List<int> selectedLoanIds)
     {
+        var borrowerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
         foreach (var loanId in selectedLoanIds)
         {
             await _loanApiService.ReturnLoanAsync(loanId);
         }
+        await _notificationApiService.CreateNotificationAsync(borrowerId, 5);
         TempData["SuccessMessage"] = $"{selectedLoanIds.Count} objekt har returnerats!";
         return RedirectToAction("Index");
     }
@@ -101,10 +106,12 @@ public class LoansController : Controller
         var borrowerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
 
         await _loanApiService.CreateLoanAsync(itemId, borrowerId, dueDate);
+        await _notificationApiService.CreateNotificationAsync(borrowerId, 4, dueDate);
 
         TempData["SuccessMessage"] = "Lånet har registrerats!";
         return RedirectToAction("Borrow");
     }
 
+    
     
 }

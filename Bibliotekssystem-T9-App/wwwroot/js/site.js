@@ -46,3 +46,19 @@ function toggleDatePicker(itemId) {
     const form = document.getElementById(`borrow-form-${itemId}`);
     form.style.display = form.style.display === 'none' ? 'flex' : 'none';
 }
+
+const accountBtn = document.getElementById('account-btn');
+const accountPanel = document.getElementById('account-panel');
+
+if(accountBtn) {
+    accountBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        accountPanel.classList.toggle('open');
+        document.getElementById('notif-panel')?.classList.remove('open');
+    });
+    document.addEventListener('click', e => {
+        if (!accountBtn.contains(e.target) && !accountPanel.contains(e.target)) {
+            accountPanel.classList.remove('open');
+        }
+    });
+}

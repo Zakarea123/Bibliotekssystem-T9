@@ -38,10 +38,19 @@
                         <div class="notif-panel" id="notif-panel"></div>
                     </div>
 
-                    <button class="nav-item" type="button">
-                        <img src="~/images/user.png" alt="" aria-hidden="true" class="nav-icon" />
-                        <span class="nav-text">Konto</span>
-                    </button>
+                    <div class="account-wrapper">
+                        <button class="nav-item" type="button" id="account-btn">
+                            <img src="~/images/user.png" alt="" aria-hidden="true"
+                                 class="nav-icon" />
+                            <span class="nav-text">Konto</span>
+                        </button>
+                        <div class="account-panel" id="account-panel">
+                            <form method="post" asp-controller="Account" asp-action="Logout">
+                                @Html.AntiForgeryToken()
+                                <button class="account-panel-item" type="submit">Logga ut</button>
+                            </form>
+                        </div>
+                    </div>
                 </nav>
             </header>
         }
@@ -68,29 +77,30 @@
                         <div class="notif-panel" id="notif-panel"></div>
                     </div>
 
-                    <button class="nav-item" type="button">
-                        <img src="~/images/user.png" alt="" aria-hidden="true"
-                             class="nav-icon" />
-                        <span class="nav-text">Konto</span>
-                    </button>
+                    <div class="account-wrapper">
+                        <button class="nav-item" type="button" id="account-btn">
+                            <img src="~/images/user.png" alt="" aria-hidden="true"
+                                 class="nav-icon" />
+                            <span class="nav-text">Konto</span>
+                        </button>
+                        <div class="account-panel" id="account-panel">
+                            <div class="account-panel-header">Hej @User.Identity?.Name!</div>
+                            <form method="post" asp-controller="Account" asp-action="Logout">
+                                @Html.AntiForgeryToken()
+                                <button class="account-panel-item" type="submit">Logga ut</button>
+                            </form>
+                        </div>
+                    </div>
                 </nav>
             </header>
         }
 
         @RenderBody()
-
-        @if (User.Identity != null && User.Identity.IsAuthenticated)
-        {
-            <form method="post" asp-controller="Account" asp-action="Logout" class="logout-form">
-                @Html.AntiForgeryToken()
-                <button class="logout" type="submit">
-                    <span class="logout-icon" aria-hidden="true">↩</span>
-                    <span>Logga ut</span>
-                </button>
-            </form>
-        }
+        
     </div>
+    
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
 
-    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -1,7 +1,27 @@
-<h2>Create</h2>
-<form method="post">
-    <input name="BookTitle" placeholder="Book" />
-    <input name="ReviewerName" placeholder="Name" />
-    <input name="Rating" type="number" />
-    <button>Save</button>
+@model Bibliotekssystem_T9_App.Models.BookReview
+
+<h2>Skriv recension</h2>
+
+<form asp-action="Create" method="post">
+    <div>
+        <label>Boktitel</label>
+        <input asp-for="BookTitle" />
+    </div>
+
+    <div>
+        <label>Ditt namn</label>
+        <input asp-for="ReviewerName" />
+    </div>
+
+    <div>
+        <label>Betyg (1-5)</label>
+        <input asp-for="Rating" type="number" min="1" max="5" />
+    </div>
+
+    <div>
+        <label>Text</label>
+        <textarea asp-for="Text"></textarea>
+    </div>
+
+    <button type="submit">Spara</button>
 </form>

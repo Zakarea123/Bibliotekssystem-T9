@@ -1,0 +1,50 @@
+@model Bibliotekssystem_T9_App.Models.BookReviews
+
+@{
+    ViewData["Title"] = "Skapa recension";
+}
+
+<div class="admin-page">
+    <div class="admin-frame">
+
+        <section class="admin-stage">
+            <div class="admin-card">
+
+                <div class="admin-card-header">
+                    <h1>Skapa recension</h1>
+                </div>
+
+                <form asp-action="Create" method="post">
+
+                    <div class="form-group">
+                        <label>Boktitel</label>
+                        <input asp-for="BookTitle" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Användare</label>
+                        <input asp-for="ReviewerName" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Betyg</label>
+                        <input asp-for="Rating" type="number" min="1" max="5" class="form-control" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Kommentar</label>
+                        <textarea asp-for="Text" class="form-control"></textarea>
+                    </div>
+
+                    <br />
+
+                    <button type="submit" class="create-btn">Spara recension</button>
+                    <a asp-action="Index" class="back-btn">Avbryt</a>
+
+                </form>
+
+            </div>
+        </section>
+
+    </div>
+</div>

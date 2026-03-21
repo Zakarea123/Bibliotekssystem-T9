@@ -342,7 +342,7 @@ body {
 }
 
 .admin-shell-layout {
-    background: #6C1106;
+    background: #6c1106;
     min-height: 100vh;
 }
 
@@ -350,13 +350,16 @@ body {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    /*padding: 0.5rem 1rem 0.25rem;*/
-    background: #6C1106;
+    background: #6c1106;
+    border-bottom: 2px solid #1c1c1c;
+    padding: 0 1.5rem;
+    width: 100%;
 }
 
 
 .admin-topbar-layout .topbar-right {
     gap: 1.5rem; }
+
 
 /* Dropdown panel för konto */
 

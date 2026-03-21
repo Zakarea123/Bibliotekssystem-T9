@@ -1,6 +1,6 @@
 namespace Bibliotekssystem_T9_App.Models;
 
-public class BookReview
+public class BookReviews
 {
     public int ReviewId { get; set; }
     public string BookTitle { get; set; }

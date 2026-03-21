@@ -28,7 +28,7 @@ public class ReviewsController : Controller
 
     // Create POST
     [HttpPost]
-    public async Task<IActionResult> Create(BookReview review)
+    public async Task<IActionResult> Create(BookReviews review)
     {
         await _reviewService.CreateReviewAsync(review);
         return RedirectToAction("Index");
@@ -47,7 +47,7 @@ public class ReviewsController : Controller
 
     // EDIT (POST)
     [HttpPost]
-    public async Task<IActionResult> Edit(int id, BookReview review)
+    public async Task<IActionResult> Edit(int id, BookReviews review)
     {
         if (id != review.ReviewId)
             return BadRequest();
@@ -68,7 +68,7 @@ public class ReviewsController : Controller
 
     // DELETE (POST)
     [HttpPost]
-    public async Task<IActionResult> Delete(int id, BookReview review)
+    public async Task<IActionResult> Delete(int id, BookReviews review)
     {
         await _reviewService.DeleteReviewAsync(id);
         return RedirectToAction("Index");

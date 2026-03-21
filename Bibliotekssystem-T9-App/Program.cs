@@ -27,11 +27,11 @@ builder.Services.AddScoped<CatalogApiService>();
 // Registrera HttpClient för ReviewService
 builder.Services.AddHttpClient<ReviewApiService>(client =>
 {
-    client.BaseAddress = new Uri("https://book-review-service.azurewebsites.net/");
+    client.BaseAddress = new Uri(builder.Configuration["ApiUrls:BookReview"]!);
 });
 
 // Registrera ReviewApiService
-//builder.Services.AddScoped<ReviewApiService>();
+builder.Services.AddScoped<ReviewApiService>();
 
 // Register Httpclient for NotificationService
 builder.Services.AddHttpClient("NotificationService", client =>

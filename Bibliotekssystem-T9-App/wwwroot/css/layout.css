@@ -35,7 +35,7 @@ body {
     overflow: hidden;
     position: relative;
     box-shadow: var(--shadow);
-    background-image: url("/images/library.jpg");  // Denna funkar inte korrekt?  
+    background-image: url("/images/library.jpg");  
     background-size: cover;
     background-position: center;
 }
@@ -194,6 +194,8 @@ body {
 
 .nav-emoji { font-size: 18px; line-height: 1; }
 .nav-text { font-size: 11px; }
+
+.nav-icon { width: 20px; height: 20px; }
 
 .nav-badge {
     position: absolute;

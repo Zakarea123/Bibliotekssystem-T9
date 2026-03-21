@@ -10,6 +10,7 @@
 
 <div class="admin-page">
     <div class="admin-frame">
+
         <aside class="admin-sidebar">
             <div>
                 <h2 class="sidebar-title">Meny</h2>
@@ -34,6 +35,7 @@
 
         <section class="admin-stage">
             <div class="admin-card">
+
                 <div class="admin-card-header">
                     <h1>Hantera recensioner</h1>
                     <p>Inloggad som <strong>@User.Identity?.Name</strong></p>
@@ -50,7 +52,7 @@
                     @if (User.Identity!.IsAuthenticated)
                     {
                         <a asp-action="Create" asp-controller="Reviews" class="create-btn">
-                            + Lägg till recension
+                            + Skriv recension
                         </a>
                     }
                 </div>
@@ -70,8 +72,9 @@
                                 <th>Åtgärder</th>
                             </tr>
                         </thead>
+
                         <tbody>
-                            @if (Model.Any())
+                            @if (Model != null && Model.Any())
                             {
                                 foreach (var review in Model)
                                 {
@@ -80,18 +83,26 @@
                                         <td>@review.ReviewerName</td>
                                         <td>@review.Rating / 5</td>
                                         <td>@review.Text</td>
-                                        <td class="action-cell">
-                                            <a asp-action="Details" asp-route-id="@review.ReviewId" class="edit-btn">Detaljer</a>
 
+                                        <td class="action-cell">
                                             @if (User.Identity.IsAuthenticated)
                                             {
-                                                <a asp-action="Edit" asp-route-id="@review.ReviewId" class="edit-btn">Redigera</a>
+                                                <a asp-action="Edit" asp-route-id="@review.ReviewId" class="edit-btn">
+                                                    Redigera
+                                                </a>
 
-                                                <form asp-action="Delete" asp-controller="Reviews" method="post" class="inline-form"
+                                                <form asp-action="Delete"
+                                                      asp-controller="Reviews"
+                                                      method="post"
+                                                      class="inline-form"
                                                       onsubmit="return confirm('Vill du verkligen ta bort recensionen?');">
+
                                                     @Html.AntiForgeryToken()
                                                     <input type="hidden" name="id" value="@review.ReviewId" />
-                                                    <button type="submit" class="delete-btn">Ta bort</button>
+
+                                                    <button type="submit" class="delete-btn">
+                                                        Ta bort
+                                                    </button>
                                                 </form>
                                             }
                                         </td>
@@ -101,13 +112,17 @@
                             else
                             {
                                 <tr>
-                                    <td colspan="5" class="empty-state">Inga recensioner ännu.</td>
+                                    <td colspan="5" class="empty-state">
+                                        Inga recensioner ännu.
+                                    </td>
                                 </tr>
                             }
                         </tbody>
                     </table>
                 </div>
+
             </div>
         </section>
+
     </div>
 </div>

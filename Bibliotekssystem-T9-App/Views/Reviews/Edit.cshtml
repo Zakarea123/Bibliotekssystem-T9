@@ -1,0 +1,10 @@
+@model Bibliotekssystem_T9_App.Models.BookReview
+
+<h2>Edit</h2>
+<form method="post">
+    <input type="hidden" asp-for="ReviewId" />
+    <input asp-for="BookTitle" />
+    <input asp-for="ReviewerName" />
+    <input asp-for="Rating" />
+    <button>Save</button>
+</form>

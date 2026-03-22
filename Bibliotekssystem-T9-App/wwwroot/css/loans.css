@@ -226,3 +226,16 @@
 .cancel-btn:hover {
     background: #cacbcd;
 }
+.user-frame {
+    display: grid;
+    grid-template-columns: 190px 1fr;
+    height: calc(100vh - 82px);
+    overflow: hidden;
+    width: min(80vw, 1700px);
+    margin: 0 auto;
+    border-radius: 10px;
+}
+.user-frame .home-stage {
+    width: 100%;
+    height: 100%;
+}

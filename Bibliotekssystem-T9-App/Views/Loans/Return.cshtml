@@ -5,7 +5,29 @@
     var itemTitles = ViewBag.ItemTitles as Dictionary<int, string> ?? new Dictionary<int, string>();
 }
 
-<link rel="stylesheet" href="~/css/loans.css" />
+<div class="user-frame">
+    <aside class="admin-sidebar">
+        <h2 class="sidebar-title">Meny</h2>
+        <nav class="sidebar-nav">
+            <a asp-controller="Loans" asp-action="Borrow" class="sidebar-link">
+                Låna Objekt
+            </a>
+
+            <a asp-controller="Loans" asp-action="Return" class="sidebar-link active">
+                Returnera Objekt
+            </a>
+                    
+            <a asp-controller="Loans" asp-action="Index" class="sidebar-link">
+                Mina Lån
+            </a>
+                    
+            <a asp-controller="Loans" asp-action="History" class="sidebar-link">
+                Lånhistorik
+            </a>
+        </nav>
+        <a asp-controller="Home" asp-action="Index" class="back-link">Till start</a>
+    </aside>
+
 
 <div class="home-stage">
     <main class="panel loans-panel">
@@ -26,13 +48,13 @@
                 <div class="loans-table-wrapper">
                     <table class="loans-table">
                         <thead>
-                            <tr>
-                                <th></th>
-                                <th>Objekt</th>
-                                <th>Utlånad</th>
-                                <th>Förfallodatum</th>
-                                <th>Status</th>
-                            </tr>
+                        <tr>
+                            <th></th>
+                            <th>Objekt</th>
+                            <th>Utlånad</th>
+                            <th>Förfallodatum</th>
+                            <th>Status</th>
+                        </tr>
                         </thead>
                         <tbody>
                         @foreach (var loan in Model)
@@ -59,6 +81,6 @@
                 </div>
             </form>
         }
-
-    </main>
+        </main>
+    </div>
 </div>

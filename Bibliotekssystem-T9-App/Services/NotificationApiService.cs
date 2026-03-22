@@ -49,4 +49,18 @@ public class NotificationApiService
     var response = await _client.SendAsync(request);
     response.EnsureSuccessStatusCode();
   }
+  
+  // CREATE
+
+  public async Task CreateNotificationAsync(int userId, int templateId, DateTime? dueDate = null)
+  {
+    var message = dueDate.HasValue ? $"Du har lånat ett objekt. Återlämningsdatum: {dueDate.Value:yyyy-MM-dd}." : null;
+    var dto = new { UserId = userId, TemplateId = templateId, CustomMessage = message };
+    var request = new HttpRequestMessage(HttpMethod.Post, $"api/notifications");
+    request.Headers.Add("X-API-Key", _apiKey);
+    request.Content = JsonContent.Create(dto);
+    await _client.SendAsync(request);
+  }
+  
+  
 }

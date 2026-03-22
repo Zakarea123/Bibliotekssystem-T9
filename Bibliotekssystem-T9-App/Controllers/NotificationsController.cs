@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 namespace Bibliotekssystem_T9_App.Controllers;
 
-[Authorize] // Kräver inloggning. Man kan ej nå notiser utan att vara autentiserad.
+[Authorize] 
 public class NotificationsController : Controller
 {
     // Konstruktorn
@@ -38,5 +38,12 @@ public class NotificationsController : Controller
     {
         await _notificationService.DeleteNotificationAsync(id);
         return Ok();
+    }
+
+    public async Task<IActionResult> UnreadCount()
+    {
+        var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        var unread = await _notificationService.GetUserUnreadAsync(userId);
+        return Json(unread.Count);
     }
 }

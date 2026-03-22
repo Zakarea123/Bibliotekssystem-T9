@@ -9,6 +9,12 @@ const badge = document.getElementById('notif-badge');
 
 
 if (btn) { // Om elementet inte finns på sidan returnerar getElementById null
+    if (badge) { // Hämtar antalet olästa notifikationer för att göra en count.
+        fetch('/Notifications/UnreadCount/')
+            .then(r => r.json())
+            .then(count=> { badge.textContent = count; })
+    }
+    
     btn.addEventListener('click', async () => {
         if (panel.classList.contains('open')) {
             panel.classList.remove('open');

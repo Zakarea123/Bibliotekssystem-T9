@@ -32,11 +32,6 @@
     <div class="home-stage">
         <main class="panel loans-panel">
 
-            <!-- Back button and see history-->
-            <div class="panel-topbar">
-                <a asp-controller="Home" asp-action="Index" class="back-btn">← Tillbaka</a>
-                <a asp-controller="Loans" asp-action="History" class="history-btn">Se historik →</a>
-            </div>
             
             @if (TempData["SuccessMessage"] != null)
             {

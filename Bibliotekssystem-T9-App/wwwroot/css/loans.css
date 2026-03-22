@@ -9,13 +9,6 @@
     text-align: left;
 }
 
-.panel-topbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 14px;
-}
-
 /* Back button */
 .back-btn {
     display: inline-block;

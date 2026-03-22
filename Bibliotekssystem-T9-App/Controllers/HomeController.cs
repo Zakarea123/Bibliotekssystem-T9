@@ -31,6 +31,12 @@ public class HomeController : Controller
                 .OrderBy(l => l.DueDate)
                 .FirstOrDefault()?.DueDate.ToString("d MMM") ?? "—";
         }
+        else
+        {
+            var allLoans = await _loanApiService.GetActiveLoansAsync();
+            ViewBag.AllActiveLoans = allLoans.Count();
+            ViewBag.OverdueLoans = allLoans.Count(l => l.DueDate < DateTime.Now);
+        }
         return View();
     }
     

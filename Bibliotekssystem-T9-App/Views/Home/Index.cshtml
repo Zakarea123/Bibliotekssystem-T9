@@ -35,8 +35,8 @@
             <div class="info-callout" aria-label="Admininformation">
                 <div class="callout-notch" aria-hidden="true"></div>
                 <div class="callout-body">
-                    <div>Inkomna returer: <strong>2 st</strong></div>
-                    <div>Saknade objekt: <strong>1 st</strong></div>
+                    <div>Aktiva Lån: <strong>@(ViewBag.AllActiveLoans ?? "—") st</strong></div>
+                    <div>Saknade objekt: <strong>@(ViewBag.OverdueLoans ?? "—") st</strong></div>
                 </div>
             </div>
         }

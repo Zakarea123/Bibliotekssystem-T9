@@ -62,3 +62,11 @@ if(accountBtn) {
         }
     });
 }
+// Filters and hides the items table in real time based on the user's search input.
+document.getElementById('itemSearch').addEventListener('input', function () {
+    const query = this.value.toLowerCase();
+    document.querySelectorAll('.loans-table tbody tr').forEach(function (row) {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(query) ? '' : 'none';
+    });
+});

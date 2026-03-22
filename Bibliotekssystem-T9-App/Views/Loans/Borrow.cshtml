@@ -8,13 +8,31 @@
     var maxDate = DateTime.Now.AddDays(14).ToString("yyyy-MM-dd");
 }
 
+<div class="user-frame">
+    <aside class="admin-sidebar">
+        <h2 class="sidebar-title">Meny</h2>
+        <nav class="sidebar-nav">
+            <a asp-controller="Loans" asp-action="Borrow" class="sidebar-link active">
+                Låna Objekt
+            </a>
+
+            <a asp-controller="Loans" asp-action="Return" class="sidebar-link">
+                Returnera Objekt
+            </a>
+                    
+            <a asp-controller="Loans" asp-action="Index" class="sidebar-link">
+                Mina Lån
+            </a>
+                    
+            <a asp-controller="Loans" asp-action="History" class="sidebar-link">
+                Lånhistorik
+            </a>
+        </nav>
+        <a asp-controller="Home" asp-action="Index" class="back-link">Till start</a>
+    </aside>
+    
 <div class="home-stage">
     <main class="panel loans-panel">
-
-        <div class="panel-topbar">
-            <a asp-controller="Home" asp-action="Index" class="back-btn">← Tillbaka</a>
-        </div>
-
         <h1 class="panel-title">Låna objekt</h1>
 
         @if (TempData["SuccessMessage"] != null)
@@ -28,15 +46,20 @@
         }
         else
         {
+            <div class="admin-toolbar">
+                <div class="search-form">
+                    <input type="text" id="itemSearch" placeholder="Sök efter objekt..." />
+                </div>
+            </div>
             <div class="loans-table-wrapper">
                 <table class="loans-table">
                     <thead>
-                        <tr>
-                            <th>Titel</th>
-                            <th>Typ</th>
-                            <th>Status</th>
-                            <th>Åtgärd</th>
-                        </tr>
+                    <tr>
+                        <th>Titel</th>
+                        <th>Typ</th>
+                        <th>Status</th>
+                        <th>Åtgärd</th>
+                    </tr>
                     </thead>
                     <tbody>
                     @foreach (var item in Model)
@@ -72,5 +95,6 @@
             </div>
         }
     </main>
+    </div>
 </div>
 <script src="~/js/site.js" asp-append-version="true"></script>

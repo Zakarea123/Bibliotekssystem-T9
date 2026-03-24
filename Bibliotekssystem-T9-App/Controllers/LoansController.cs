@@ -81,9 +81,12 @@ public class LoansController : Controller
         var borrowerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
         foreach (var loanId in selectedLoanIds)
         {
+            var loan = await _loanApiService.GetLoanAsync(loanId);
+            var item = loan is not null ? await 
+                _catalogApiService.GetItemAsync(loan.ItemId): null;
             await _loanApiService.ReturnLoanAsync(loanId);
+            await _notificationApiService.CreateNotificationAsync(borrowerId, 5, itemTitle: item?.Title);
         }
-        await _notificationApiService.CreateNotificationAsync(borrowerId, 5);
         TempData["SuccessMessage"] = $"{selectedLoanIds.Count} objekt har returnerats!";
         return RedirectToAction("Index");
     }
@@ -104,14 +107,13 @@ public class LoansController : Controller
     public async Task<IActionResult> CreateLoan(int itemId, DateTime dueDate)
     {
         var borrowerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        var item = await _catalogApiService.GetItemAsync(itemId);
 
         await _loanApiService.CreateLoanAsync(itemId, borrowerId, dueDate);
-        await _notificationApiService.CreateNotificationAsync(borrowerId, 4, dueDate);
+        await _notificationApiService.CreateNotificationAsync(borrowerId, 4, itemTitle: item?.Title, dueDate: dueDate);
 
         TempData["SuccessMessage"] = "Lånet har registrerats!";
         return RedirectToAction("Borrow");
     }
-
-    
     
 }

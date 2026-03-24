@@ -52,9 +52,10 @@ public class NotificationApiService
   
   // CREATE
 
-  public async Task CreateNotificationAsync(int userId, int templateId, DateTime? dueDate = null)
+  public async Task CreateNotificationAsync(int userId, int templateId,string? itemTitle = null, DateTime? dueDate = null)
   {
-    var message = dueDate.HasValue ? $"Du har lånat ett objekt. Återlämningsdatum: {dueDate.Value:yyyy-MM-dd}." : null;
+    var message = dueDate.HasValue ? $"Du har lånat \"{itemTitle ?? "objekt"}\". Återlämningsdatum: {dueDate.Value:yyyy-MM-dd}." : itemTitle is not null ? $"Du har återlämnat \"{itemTitle}\"." 
+        : null;
     var dto = new { UserId = userId, TemplateId = templateId, CustomMessage = message };
     var request = new HttpRequestMessage(HttpMethod.Post, $"api/notifications");
     request.Headers.Add("X-API-Key", _apiKey);

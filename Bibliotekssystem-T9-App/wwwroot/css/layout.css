@@ -327,7 +327,7 @@ body {
 }
 
 .admin-shell-layout {
-    background: #6c1106;
+    background: #2B0802 ;
     min-height: 100vh;
 }
 
@@ -335,7 +335,8 @@ body {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    background: #6c1106;
+   /* background: #6c1106;  Gamla röda färgen */
+    background: #2B0802;
     /* border-bottom: 2px solid #1c1c1c; */
     padding: 0 1.5rem;
     width: 100%;

@@ -173,7 +173,8 @@
     max-height: 36px;
     padding: 0.7rem 1rem;
     border-radius: 10px;
-    background: #045b73;
+    /* background: #045b73; gamla färgen */
+    background:  #052638; /* nya färgen */
     color: #fff;
     text-decoration: none;
     font-weight: 500;
@@ -181,7 +182,8 @@
 }
 
     .create-btn:hover {
-        background: #03495c;
+       /* background: #03495c; gamla färgen */
+        background: #041f2d; /* nya färgen */
         color: #fff;
     }
 

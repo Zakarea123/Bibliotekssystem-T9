@@ -24,7 +24,8 @@ body {
     justify-items: center;
     align-content: start;
     gap: 16px;
-    padding: 18px 18px 28px;
+   padding: 18px 18px 28px; 
+    
 }
 
 /* Hero image area */
@@ -151,7 +152,9 @@ body {
     align-items: center;
     gap: 18px;
 }
-
+.topbar:not(.admin-topbar-layout) .topbar-right {
+    padding-right:1.5rem;
+}
 .search-container {
     display: flex;
     justify-content: center;
@@ -324,7 +327,7 @@ body {
 }
 
 .admin-shell-layout {
-    background: #6c1106;
+    background: #2B0802 ;
     min-height: 100vh;
 }
 
@@ -332,15 +335,24 @@ body {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    background: #6c1106;
-    border-bottom: 2px solid #1c1c1c;
+   /* background: #6c1106;  Gamla röda färgen */
+    background: #2B0802;
+    /* border-bottom: 2px solid #1c1c1c; */
     padding: 0 1.5rem;
     width: 100%;
+}
+
+.admin-topbar-layout .nav-icon {
+    filter: brightness(0) invert(1);
 }
 
 
 .admin-topbar-layout .topbar-right {
     gap: 1.5rem; }
+
+.admin-topbar-layout .notif-panel {
+    background: rgba(43,8,2,.95);
+}
 
 
 /* Dropdown panel för konto */

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Inter:wght@400;500&display=swap');
 
 :root {
-    --bg: #004456;
+    --bg: #002D39;
     --accent: #A04E28;
     --radius: 14px;
     --glass: rgba(255,255,255,.86);
@@ -92,7 +92,7 @@ body {
 }
 
 .tile-label {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 500;
 }
 
@@ -103,13 +103,18 @@ body {
     align-items: center;
     justify-content: center;
 }
+    .tile-icon iconify-icon {
+        font-size: 65px;
+        color: white;
+        margin-top: 15px;
+    }
 
-.tile-icon img {
+/*.tile-icon img {
     width: 65px;
     height: 65px;
     object-fit: contain;
     margin-top: 10px;
-}
+} */
 
 /* Info callout */
 .info-callout {
@@ -180,7 +185,7 @@ body {
 .nav-emoji { font-size: 18px; line-height: 1; }
 .nav-text { font-size: 11px; }
 
-.nav-icon { width: 20px; height: 20px; }
+.nav-icon { width: 30px; height: 30px; }
 
 .nav-badge {
     position: absolute;
@@ -232,7 +237,7 @@ body {
     top: calc(100% + 8px);
     right: 0;
     width: 320px;
-    background:rgba(0,68,86, 0.95);
+    background: rgba(0, 45, 57, 0.95);
     border-radius: 12px;
     box-shadow: 0 20px 40px rgba(0,0,0,.25);
     z-index: 100;
@@ -342,7 +347,11 @@ body {
     width: 100%;
 }
 
-.admin-topbar-layout .nav-icon {
+/*.admin-topbar-layout .nav-icon {
+    filter: brightness(0) invert(1);
+} */
+
+.nav-icon {
     filter: brightness(0) invert(1);
 }
 

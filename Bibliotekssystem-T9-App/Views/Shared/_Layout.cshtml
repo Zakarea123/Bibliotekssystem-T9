@@ -46,6 +46,8 @@
                             <span class="nav-text">Konto</span>
                         </button>
                         <div class="account-panel" id="account-panel">
+                            <div class="account-panel-header">Hej
+                                @User.FindFirst(System.Security.Claims.ClaimTypes.GivenName)?.Value!</div>
                             <form method="post" asp-controller="Account" asp-action="Logout">
                                 @Html.AntiForgeryToken()
                                 <button class="account-panel-item" type="submit">Logga ut</button>
@@ -78,7 +80,7 @@
                             <span class="nav-text">Konto</span>
                         </button>
                         <div class="account-panel" id="account-panel">
-                            <div class="account-panel-header">Hej @User.Identity?.Name!</div>
+                            <div class="account-panel-header">Hej @User.FindFirst(System.Security.Claims.ClaimTypes.GivenName)?.Value!</div>
                             <form method="post" asp-controller="Account" asp-action="Logout">
                                 @Html.AntiForgeryToken()
                                 <button class="account-panel-item" type="submit">Logga ut</button>

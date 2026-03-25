@@ -1,16 +1,19 @@
 using Microsoft.AspNetCore.Mvc;
 using Bibliotekssystem_T9_App.Services;
 using Bibliotekssystem_T9_App.Models;
+using System.Security.Claims;
 
 namespace Bibliotekssystem_T9_App.Controllers;
 
 public class ReviewsController : Controller
 {
     private readonly ReviewApiService _reviewService;
+    private readonly NotificationApiService _notificationApiService;
 
-    public ReviewsController(ReviewApiService reviewService)
+    public ReviewsController(ReviewApiService reviewService, NotificationApiService notificationApiService)
     {
         _reviewService = reviewService;
+        _notificationApiService = notificationApiService;
     }
 
     // LISTA
@@ -43,6 +46,8 @@ public class ReviewsController : Controller
     public async Task<IActionResult> Create(BookReviews review)
     {
         await _reviewService.CreateReviewAsync(review);
+        var adminId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        await _notificationApiService.CreateNotificationAsync(adminId, 8);
         return RedirectToAction("Index");
     }
 
@@ -65,6 +70,8 @@ public class ReviewsController : Controller
             return BadRequest();
 
         await _reviewService.UpdateReviewAsync(review);
+        var adminId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        await _notificationApiService.CreateNotificationAsync(adminId, 8);
 
         return RedirectToAction("Index");
     }
@@ -83,6 +90,8 @@ public class ReviewsController : Controller
     public async Task<IActionResult> Delete(int id, BookReviews review)
     {
         await _reviewService.DeleteReviewAsync(id);
+        var adminId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        await _notificationApiService.CreateNotificationAsync(adminId, 8);
         return RedirectToAction("Index");
     }
 }

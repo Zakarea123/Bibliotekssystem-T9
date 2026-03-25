@@ -1,4 +1,5 @@
-﻿using Bibliotekssystem_T9_App.Models;
+﻿using System.Security.Claims;
+using Bibliotekssystem_T9_App.Models;
 using Bibliotekssystem_T9_App.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,11 +10,13 @@ public class CatalogController : Controller
 {
     private readonly CatalogApiService _catalogApiService;
     private readonly LoanApiService _loanApiService;
+    private readonly NotificationApiService _notificationApiService;
 
-    public CatalogController(CatalogApiService catalogApiService, LoanApiService loanApiService)
+    public CatalogController(CatalogApiService catalogApiService, LoanApiService loanApiService, NotificationApiService notificationApiService)
     {
         _catalogApiService = catalogApiService;
         _loanApiService = loanApiService;
+        _notificationApiService = notificationApiService;
     }
 
     //GET: Visar alla objekt i katalogen med tillgänglighetsstatus från LoanService
@@ -60,6 +63,8 @@ public class CatalogController : Controller
     {
         item.IsActive = true; //Varje nytt skapat objekt får status tillgängligt per automatik
         await _catalogApiService.CreateItemAsync(item);
+        var adminId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        await _notificationApiService.CreateNotificationAsync(adminId, 6);
         return RedirectToAction(nameof(Index));
     }
 
@@ -79,6 +84,8 @@ public class CatalogController : Controller
     public async Task<IActionResult> Edit(int id, Item item)
     {
         await _catalogApiService.UpdateItemAsync(id, item);
+        var adminId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        await _notificationApiService.CreateNotificationAsync(adminId, 6);
         return RedirectToAction(nameof(Index));
     }
 
@@ -96,6 +103,8 @@ public class CatalogController : Controller
     public async Task<IActionResult> DeleteConfirmed(int id)
     {
         await _catalogApiService.DeleteItemAsync(id);
+        var adminId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        await _notificationApiService.CreateNotificationAsync(adminId, 6);
         return RedirectToAction(nameof(Index));
     }
     

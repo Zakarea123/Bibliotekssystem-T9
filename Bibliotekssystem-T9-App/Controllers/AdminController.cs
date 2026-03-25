@@ -2,6 +2,7 @@
 using Bibliotekssystem_T9_App.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace Bibliotekssystem_T9_App.Controllers;
 
@@ -9,10 +10,12 @@ namespace Bibliotekssystem_T9_App.Controllers;
 public class AdminController : Controller
 {
     private readonly UserApiService _userApiService;
+    private readonly NotificationApiService _notificationApiService;
 
-    public AdminController(UserApiService userApiService)
+    public AdminController(UserApiService userApiService, NotificationApiService notificationApiService)
     {
         _userApiService = userApiService;
+        _notificationApiService = notificationApiService;
     }
 
     public async Task<IActionResult> Index(string? searchTerm)
@@ -37,6 +40,10 @@ public class AdminController : Controller
     public async Task<IActionResult> Delete(int id)
     {
         await _userApiService.DeleteUserAsync(id);
+        
+        var adminId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        await _notificationApiService.CreateNotificationAsync(adminId, 7);
+        
         return RedirectToAction(nameof(Index));
     }
 
@@ -59,6 +66,8 @@ public class AdminController : Controller
             ModelState.AddModelError("", "Kunde inte skapa användaren.");
             return View(dto);
         }
+        var adminId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        await _notificationApiService.CreateNotificationAsync(adminId, 7);
 
         return RedirectToAction(nameof(Index));
     }
@@ -97,7 +106,9 @@ public class AdminController : Controller
             ModelState.AddModelError("", "Kunde inte uppdatera användaren.");
             return View(dto);
         }
-
+        var adminId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        await _notificationApiService.CreateNotificationAsync(adminId, 7);
+        
         return RedirectToAction(nameof(Index));
     }
 }

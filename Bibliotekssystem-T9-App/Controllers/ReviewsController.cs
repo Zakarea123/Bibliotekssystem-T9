@@ -14,9 +14,21 @@ public class ReviewsController : Controller
     }
 
     // LISTA
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(string searchTerm)
     {
         var reviews = await _reviewService.GetReviewsAsync();
+
+        if (!string.IsNullOrEmpty(searchTerm))
+        {
+            searchTerm = searchTerm.ToLower();
+
+            reviews = reviews.Where(r =>
+                (r.BookTitle ?? "").ToLower().Contains(searchTerm) ||
+                (r.ReviewerName ?? "").ToLower().Contains(searchTerm) ||
+                (r.Text ?? "").ToLower().Contains(searchTerm)
+            ).ToList();
+        }
+
         return View(reviews);
     }
 

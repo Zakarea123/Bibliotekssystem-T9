@@ -342,6 +342,10 @@ body {
     width: 100%;
 }
 
+.admin-topbar-layout .nav-icon {
+    filter: brightness(0) invert(1);
+}
+
 
 .admin-topbar-layout .topbar-right {
     gap: 1.5rem; }

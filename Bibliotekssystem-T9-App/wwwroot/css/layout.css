@@ -350,6 +350,10 @@ body {
 .admin-topbar-layout .topbar-right {
     gap: 1.5rem; }
 
+.admin-topbar-layout .notif-panel {
+    background: rgba(43,8,2,.95);
+}
+
 
 /* Dropdown panel för konto */
 

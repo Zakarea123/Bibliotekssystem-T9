@@ -181,8 +181,13 @@
     background: rgba(0, 0, 0, 0.08);
     display: grid;
     place-items: center;
-    font-size: 1.5rem;
 }
+
+    /* styling för ikonen */
+    .edit-avatar iconify-icon {
+        font-size: 32px;
+        color: #18233a;
+    }
 
 .edit-modal-header h1 {
     margin: 0;

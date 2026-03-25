@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Inter:wght@400;500&display=swap');
 
-:root{
-    --bg: #004456;
+:root {
+    --bg: #002D39;
     --accent: #A04E28;
     --card-opacity: 0.90;
     --radius: 14px;
@@ -76,11 +76,17 @@ body{
     margin: 0 auto 14px;
 }
 
-.login-icon img{
-    width: 30px;
-    height: 30px;
-    object-fit: contain;
-}
+    .login-icon iconify-icon {
+        font-size: 38px;
+        color: white;
+    }
+
+   /* .login-icon img {
+        width: 30px;
+        height: 30px;
+        object-fit: contain;
+        filter: brightness(0) invert(1);
+    } */
 
 .login-title{
     font-family: "Poppins", system-ui, sans-serif;

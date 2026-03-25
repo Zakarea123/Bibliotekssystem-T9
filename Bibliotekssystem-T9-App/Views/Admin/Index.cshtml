@@ -43,6 +43,7 @@
                 <div class="admin-toolbar">
                     <form method="get" asp-action="Index" asp-controller="Admin" class="search-form">
                         <input type="text"
+                               id="userSearch"
                                name="searchTerm"
                                value="@Context.Request.Query["searchTerm"]"
                                placeholder="Sök efter användare" />

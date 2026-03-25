@@ -12,21 +12,27 @@
             <section class="action-row" aria-label="Adminåtgärder">
                 <a asp-controller="Admin" asp-action="Index" class="action-tile action-tile-admin">
                     <div class="tile-icon">
-                        <img src="~/images/BorrowBooks.png" alt="Hantera användare ikon">
+                        <!-- Hantera användare -->
+                        <iconify-icon icon="lucide:users"></iconify-icon>
+                        <!-- <img src="~/images/BorrowBooks.png" alt="Hantera användare ikon"> -->
                     </div>
                     <div class="tile-label">Hantera användare</div>
                 </a>
 
                 <a asp-controller="Catalog" asp-action="Index" class="action-tile action-tile-admin">
                     <div class="tile-icon">
-                        <img src="~/images/ReturnBook.png" alt="Hantera objekt ikon">
+                        <!-- Hantera objekt -->
+                        <iconify-icon icon="lucide:library"></iconify-icon>
+                        <!-- <img src="~/images/ReturnBook.png" alt="Hantera objekt ikon"> -->
                     </div>
                     <div class="tile-label">Hantera objekt</div>
                 </a>
 
                 <a asp-controller="Reviews" asp-action="Index" class="action-tile action-tile-admin">
                     <div class="tile-icon">
-                        <img src="~/images/Mybooks.png" alt="Hantera recensioner ikon">
+                        <!-- Hantera objekt -->
+                        <iconify-icon icon="lucide:star"></iconify-icon>
+                        <!-- <img src="~/images/Mybooks.png" alt="Hantera recensioner ikon"> -->
                     </div>
                     <div class="tile-label">Hantera recensioner</div>
                 </a>
@@ -47,21 +53,27 @@
             <section class="action-row" aria-label="Snabbåtgärder">
                 <a asp-controller="Loans" asp-action="Borrow" class="action-tile">
                     <div class="tile-icon">
-                        <img src="~/images/BorrowBooks.png" alt="Låna ikon">
+                                    <!-- Låna -->
+                                    <iconify-icon icon="lucide:library"></iconify-icon>
+                                    <!--   <img src="~/images/BorrowBooks.png" alt="Låna ikon"> -->
                     </div>
                     <div class="tile-label">Låna objekt</div>
                 </a>
 
                 <a asp-controller="Loans" asp-action="Return" class="action-tile">
                     <div class="tile-icon">
-                        <img src="~/images/ReturnBook.png" alt="Returnera ikon">
+                                    <!-- Returnera -->
+                                    <iconify-icon icon="lucide:undo-2"></iconify-icon>
+                                    <!-- <img src="~/images/ReturnBook.png" alt="Returnera ikon"> -->
                     </div>
                     <div class="tile-label">Returnera objekt</div>
                 </a>
 
                 <a asp-controller="Loans" asp-action="Index" class="action-tile">
                     <div class="tile-icon">
-                        <img src="~/images/Mybooks.png" alt="Mina lån ikon">
+                                    <!-- Mina lån -->
+                                    <iconify-icon icon="lucide:book-open"></iconify-icon>
+                                    <!-- <img src="~/images/Mybooks.png" alt="Mina lån ikon"> -->
                     </div>
                     <div class="tile-label">Mina lån</div>
                 </a>

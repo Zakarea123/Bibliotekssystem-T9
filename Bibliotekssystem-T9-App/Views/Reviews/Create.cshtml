@@ -4,47 +4,39 @@
     ViewData["Title"] = "Skapa recension";
 }
 
-<div class="admin-page">
-    <div class="admin-frame">
+<div class="home-stage">
+    <main class="panel loans-panel">
 
-        <section class="admin-stage">
-            <div class="admin-card">
+        <div class="panel-topbar">
+            <a asp-controller="Reviews" asp-action="Index" class="back-btn">← Tillbaka</a>
+        </div>
 
-                <div class="admin-card-header">
-                    <h1>Skapa recension</h1>
-                </div>
+        <h1 class="panel-title">Skapa recension</h1>
 
-                <form asp-action="Create" method="post">
+        <form asp-action="Create" method="post">
 
-                    <div class="form-group">
-                        <label>Boktitel</label>
-                        <input asp-for="BookTitle" class="form-control" />
-                    </div>
-
-                    <div class="form-group">
-                        <label>Användare</label>
-                        <input asp-for="ReviewerName" class="form-control" />
-                    </div>
-
-                    <div class="form-group">
-                        <label>Betyg</label>
-                        <input asp-for="Rating" type="number" min="1" max="5" class="form-control" />
-                    </div>
-
-                    <div class="form-group">
-                        <label>Kommentar</label>
-                        <textarea asp-for="Text" class="form-control"></textarea>
-                    </div>
-
-                    <br />
-
-                    <button type="submit" class="create-btn">Spara recension</button>
-                    <a asp-action="Index" class="back-btn">Avbryt</a>
-
-                </form>
-
+            <div>
+                <label>Boktitel</label>
+                <input asp-for="BookTitle" class="form-control" required />
             </div>
-        </section>
 
-    </div>
+            <div>
+                <label>Användare</label>
+                <input asp-for="ReviewerName" class="form-control" required />
+            </div>
+
+            <div>
+                <label>Betyg (1-5)</label>
+                <input asp-for="Rating" type="number" min="1" max="5" class="form-control" required />
+            </div>
+
+            <div>
+                <label>Kommentar</label>
+                <textarea asp-for="Text" class="form-control"></textarea>
+            </div>
+
+            <button type="submit" class="history-btn">Spara recension</button>
+        </form>
+
+    </main>
 </div>

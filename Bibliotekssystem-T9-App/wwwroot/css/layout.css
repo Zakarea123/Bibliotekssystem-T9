@@ -24,7 +24,8 @@ body {
     justify-items: center;
     align-content: start;
     gap: 16px;
-    padding: 18px 18px 28px;
+   padding: 18px 18px 28px; 
+    
 }
 
 /* Hero image area */
@@ -151,7 +152,9 @@ body {
     align-items: center;
     gap: 18px;
 }
-
+.topbar:not(.admin-topbar-layout) .topbar-right {
+    padding-right:1.5rem;
+}
 .search-container {
     display: flex;
     justify-content: center;

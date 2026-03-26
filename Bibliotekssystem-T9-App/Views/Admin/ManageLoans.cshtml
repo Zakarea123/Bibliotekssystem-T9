@@ -5,91 +5,110 @@
     var itemTitles = ViewBag.ItemTitles as Dictionary<int, string> ?? new Dictionary<int, string>();
 }
 
-<div class="user-frame">
-    <aside class="admin-sidebar">
-        <h2 class="sidebar-title">Meny</h2>
-            <nav class="sidebar-nav">
-                <a asp-controller="Admin" asp-action="Index" class="sidebar-link">
-                    Hantera användare
-                </a>
+@section Styles {
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+}
 
-                <a asp-controller="Catalog" asp-action="Index" class="sidebar-link">
-                    Hantera katalog
-                </a>
-                
-                <a asp-controller="Admin" asp-action="ManageLoans" class="sidebar-link active">
-                    Hantera Lån
-                </a>
-                
-                <a asp-controller="Reviews" asp-action="Index" class="sidebar-link">
-                    Hantera recensioner
-                </a>
-            </nav>
+<div class="admin-page">
+    <div class="admin-frame">
+        <aside class="admin-sidebar">
+            <div>
+                <h2 class="sidebar-title">Meny</h2>
+                <nav class="sidebar-nav">
+                    <a asp-controller="Admin" asp-action="Index" class="sidebar-link">
+                        Hantera användare
+                    </a>
+                    <a asp-controller="Catalog" asp-action="Index" class="sidebar-link">
+                        Hantera katalog
+                    </a>
+                    <a asp-controller="Admin" asp-action="ManageLoans" class="sidebar-link active">
+                        Hantera lån
+                    </a>
+                    <a asp-controller="Reviews" asp-action="Index" class="sidebar-link">
+                        Hantera recensioner
+                    </a>
+                </nav>
+            </div>
             <a asp-controller="Home" asp-action="Index" class="back-link">Till start</a>
-    </aside>
+        </aside>
 
-    <div class="home-stage">
-        <main class="panel loans-panel">
+        <section class="admin-stage">
+            <div class="admin-card">
+                <div class="admin-card-header">
+                    <h1>Hantera lån</h1>
+                    <p>Inloggad som <strong>@User.Identity?.Name</strong></p>
+                </div>
+                
+                <div class="admin-toolbar">
+                    <form method="get" asp-action="ManageLoans" asp-controller="Admin" class="search-form">
+                        <div class="admin-toolbar">
+                            <input type="text"
+                                   id="itemSearch"
+                                   placeholder="Sök efter objekt eller låntagare ID" />
+                        </div>
+                    </form>
+                </div>
+                
+                @if (TempData["SuccessMessage"] != null)
+                {
+                    <div class="success-toast">@TempData["SuccessMessage"]</div>
+                }
 
-            <div class="panel-topbar">
-            <a asp-controller="Admin" asp-action="Index" class="back-btn">← Admin</a>
-            </div>
+                <div class="loans-summary" style="margin-bottom: 0.85rem;">
+                    <span>Aktiva lån: <strong>@Model.Count()</strong></span>
+                    &nbsp;|&nbsp;
+                    <span>Förfallna: <strong>@Model.Count(l => l.DueDate < DateTime.Now)</strong></span>
+                </div>
 
-            <h1 class="panel-title">Hantera lån</h1>
-
-            @if (TempData["SuccessMessage"] != null)
-            {
-                <div class="success-toast">@TempData["SuccessMessage"]</div>
-            }
-
-            <div class="loans-summary">
-                <div class="summary-chip">Aktiva lån: <strong>@Model.Count()</strong></div>
-                <div class="summary-chip">Förfallna: <strong>@Model.Count(l => l.DueDate < DateTime.Now)</strong></div>
-            </div>
-
-            @if (!Model.Any())
-            {
-                <p class="no-loans-msg">Inga aktiva lån just nu</p>
-            }
-            else
-            {
-                <div class="loans-table-wrapper">
+                <div class="table-wrapper">
                     <table class="loans-table">
                         <thead>
-                        <tr>
-                            <th>Objekt</th>
-                            <th>Låntagare ID</th>
-                            <th>Utlånad</th>
-                            <th>Förfallodatum</th>
-                            <th>Status</th>
-                            <th>Åtgärd</th>
-                        </tr>
+                            <tr>
+                                <th>Objekt</th>
+                                <th>Låntagare ID</th>
+                                <th>Utlånad</th>
+                                <th>Förfallodatum</th>
+                                <th>Status</th>
+                                <th>Åtgärd</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @foreach (var loan in Model)
+                        @if (Model.Any())
+                        {
+                            foreach (var loan in Model)
+                            {
+                                <tr>
+                                    <td>@(itemTitles.ContainsKey(loan.ItemId) ? itemTitles[loan.ItemId] : loan.ItemId.ToString())</td>
+                                    <td>@loan.BorrowerId</td>
+                                    <td>@loan.LoanDate.ToString("yyyy-MM-dd")</td>
+                                    <td>@loan.DueDate.ToString("yyyy-MM-dd")</td>
+                                    <td>
+                                        <span class="status-badge @(loan.DueDate < DateTime.Now ? "status-overdue" : "status-active")">
+                                            @(loan.DueDate < DateTime.Now ? "Förfallen" : "Aktiv")
+                                        </span>
+                                    </td>
+                                    <td class="action-cell">
+                                        <form asp-action="DeleteLoan" asp-controller="Admin" method="post" class="inline-form"
+                                              onsubmit="return confirm('Vill du verkligen ta bort detta lån?');">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="loanId" value="@loan.Id" />
+                                            <button type="submit" class="delete-btn">Ta bort</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
                         {
                             <tr>
-                                <td>@(itemTitles.ContainsKey(loan.ItemId) ? itemTitles[loan.ItemId] : loan.ItemId.ToString())</td>
-                                <td>@loan.BorrowerId</td>
-                                <td>@loan.LoanDate.ToString("yyyy-MM-dd")</td>
-                                <td>@loan.DueDate.ToString("yyyy-MM-dd")</td>
-                                <td>
-                                    <span class="status-badge @(loan.DueDate < DateTime.Now ? "status-overdue" : "status-active")">
-                                        @(loan.DueDate < DateTime.Now ? "Förfallen" : "Aktiv")
-                                    </span>
-                                </td>
-                                <td>
-                                    <form asp-action="DeleteLoan" asp-controller="Admin" method="post">
-                                        <input type="hidden" name="loanId" value="@loan.Id" />
-                                        <button type="submit" class="delete-btn">Ta bort</button>
-                                    </form>
-                                </td>
+                                <td colspan="6" class="empty-state">Inga aktiva lån just nu.</td>
                             </tr>
                         }
                         </tbody>
                     </table>
                 </div>
-            }
-        </main>
+
+            </div>
+        </section>
     </div>
 </div>

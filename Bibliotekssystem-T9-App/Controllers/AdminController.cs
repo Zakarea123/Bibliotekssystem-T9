@@ -11,11 +11,15 @@ public class AdminController : Controller
 {
     private readonly UserApiService _userApiService;
     private readonly NotificationApiService _notificationApiService;
-
-    public AdminController(UserApiService userApiService, NotificationApiService notificationApiService)
+    private readonly LoanApiService _loanApiService;
+    private readonly CatalogApiService _catalogApiService; 
+    public AdminController(UserApiService userApiService, NotificationApiService notificationApiService,
+        LoanApiService loanApiService, CatalogApiService catalogApiService)
     {
         _userApiService = userApiService;
         _notificationApiService = notificationApiService;
+        _loanApiService = loanApiService;
+        _catalogApiService = catalogApiService;
     }
 
     public async Task<IActionResult> Index(string? searchTerm)

@@ -140,4 +140,29 @@ public class AdminController : Controller
         TempData["SuccessMessage"] = "Lånet har tagits bort!";
         return RedirectToAction(nameof(ManageLoans));
     }
+    
+    // Fetches available items and all users for the create loan form dropdowns
+    [HttpGet]
+    public async Task<IActionResult> CreateAdminLoan()
+    {
+        var items = await _catalogApiService.GetItemsAsync();
+        var activeLoans = await _loanApiService.GetActiveLoansAsync();
+        var users = await _userApiService.GetUsersAsync();
+
+        var borrowedItemIds = activeLoans.Select(l => l.ItemId).ToHashSet();
+        var availableItems = items.Where(i => !borrowedItemIds.Contains(i.Id)).ToList();
+
+        ViewBag.AvailableItems = availableItems;
+        ViewBag.Users = users;
+        return View();
+    }
+    
+    // Creates a new loan on behalf of a user, then redirects back to ManageLoans
+    [HttpPost]
+    public async Task<IActionResult> CreateAdminLoan(int itemId, int borrowerId, DateTime dueDate)
+    {
+        await _loanApiService.CreateLoanAsync(itemId, borrowerId, dueDate);
+        TempData["SuccessMessage"] = "Lånet har registrerats!";
+        return RedirectToAction(nameof(ManageLoans));
+    }
 }

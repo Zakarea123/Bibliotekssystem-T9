@@ -47,6 +47,13 @@
                                    placeholder="Sök efter objekt eller låntagare ID" />
                         </div>
                     </form>
+                    
+                    @if (User.Identity!.IsAuthenticated)
+                    {
+                        <a asp-action="CreateAdminLoan" asp-controller="Admin" class="create-btn">
+                            + Lägg till Lån
+                        </a>
+                    }
                 </div>
                 
                 @if (TempData["SuccessMessage"] != null)

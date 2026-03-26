@@ -1,0 +1,94 @@
+@{
+    ViewData["Title"] = "Lägg till lån";
+    var availableItems = ViewBag.AvailableItems;
+    var users = ViewBag.Users;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/admin-forms.css" asp-append-version="true" />
+}
+
+<div class="admin-page">
+    <div class="admin-frame">
+        <aside class="admin-sidebar">
+            <div>
+                <h2 class="sidebar-title">Meny</h2>
+                <nav class="sidebar-nav">
+                    <a asp-controller="Admin" asp-action="Index" class="sidebar-link">
+                        Hantera användare
+                    </a>
+                    <a asp-controller="Catalog" asp-action="Index" class="sidebar-link">
+                        Hantera katalog
+                    </a>
+                    <a asp-controller="Admin" asp-action="ManageLoans" class="sidebar-link active">
+                        Hantera lån
+                    </a>
+                    <a asp-controller="Reviews" asp-action="Index" class="sidebar-link">
+                        Hantera recensioner
+                    </a>
+                </nav>
+            </div>
+            <a asp-controller="Home" asp-action="Index" class="back-link">Till start</a>
+        </aside>
+
+        <section class="admin-stage edit-stage">
+            <div class="edit-overlay"></div>
+
+            <div class="edit-modal">
+                <div class="edit-modal-header">
+                    <div class="edit-avatar">
+                        <iconify-icon icon="lucide:book-plus"></iconify-icon>
+                    </div>
+                    <h1>Lägg till lån</h1>
+                    <a asp-controller="Admin" asp-action="ManageLoans" class="edit-close-btn">✕</a>
+                </div>
+
+                <div class="edit-modal-body">
+                    <form asp-action="CreateAdminLoan" asp-controller="Admin" method="post" class="admin-form">
+
+                        <div class="form-group-custom">
+                            <label>Objekt</label>
+                            <select name="itemId" class="form-control-custom" required>
+                                <option value="">– Välj objekt –</option>
+                                @foreach (var item in availableItems)
+                                {
+                                    <option value="@item.Id">@item.Title</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group-custom">
+                            <label>Låntagare</label>
+                            <select name="borrowerId" class="form-control-custom" required>
+                                <option value="">– Välj låntagare –</option>
+                                @foreach (var user in users)
+                                {
+                                    <option value="@user.Id">@user.FullName</option>
+                                }
+                            </select>
+                        </div>
+
+                        <div class="form-group-custom">
+                            <label>Förfallodatum</label>
+                            <input type="date" name="dueDate" class="form-control-custom"
+                                   min="@DateTime.Now.ToString("yyyy-MM-dd")"
+                                   max="@DateTime.Now.AddDays(14).ToString("yyyy-MM-dd")"
+                                   required />
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="save-btn">Spara lån</button>
+                            <a asp-controller="Admin" asp-action="ManageLoans" class="cancel-btn">Avbryt</a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

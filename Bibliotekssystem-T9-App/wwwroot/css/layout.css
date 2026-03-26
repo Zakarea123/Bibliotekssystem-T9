@@ -181,7 +181,14 @@ body {
     position: relative;
     padding: 6px 8px;
 }
-
+.nav-item:hover {
+    background: rgba(255,255,255,.12);
+    border-radius: 8px;
+}
+.nav-item:active {
+    background: rgba(255,255,255,.2);
+    transform: scale(0.95);
+}
 .nav-emoji { font-size: 18px; line-height: 1; }
 .nav-text { font-size: 11px; }
 

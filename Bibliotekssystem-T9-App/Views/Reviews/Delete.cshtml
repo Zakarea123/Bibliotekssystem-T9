@@ -1,7 +1,16 @@
 @model Bibliotekssystem_T9_App.Models.BookReviews
 
-<h2>Delete</h2>
+<h2>Ta bort recension</h2>
+
+<p>Är du säker att du vill ta bort denna recension?</p>
+
+<p><strong>@Model.BookTitle</strong></p>
+<p>@Model.Text</p>
 
 <form method="post">
-    <button>Delete</button>
+    <input type="hidden" asp-for="ReviewId" />
+    <input type="hidden" asp-for="ReviewerName" />
+
+    <button type="submit">Ta bort</button>
+    <a asp-action="Index">Avbryt</a>
 </form>

@@ -45,6 +45,8 @@ public class ReviewsController : Controller
     [HttpPost]
     public async Task<IActionResult> Create(BookReviews review)
     {
+        review.ReviewerName = User.Identity!.Name;
+        
         await _reviewService.CreateReviewAsync(review);
         var adminId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
         await _notificationApiService.CreateNotificationAsync(adminId, 8);
@@ -66,8 +68,8 @@ public class ReviewsController : Controller
     [HttpPost]
     public async Task<IActionResult> Edit(int id, BookReviews review)
     {
-        if (id != review.ReviewId)
-            return BadRequest();
+        if (!User.IsInRole("Admin") && review.ReviewerName != User.Identity!.Name)
+            return Forbid();
 
         await _reviewService.UpdateReviewAsync(review);
         var adminId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
@@ -89,6 +91,9 @@ public class ReviewsController : Controller
     [HttpPost]
     public async Task<IActionResult> Delete(int id, BookReviews review)
     {
+        if (!User.IsInRole("Admin") && review.ReviewerName != User.Identity!.Name)
+            return Forbid();
+        
         await _reviewService.DeleteReviewAsync(id);
         var adminId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
         await _notificationApiService.CreateNotificationAsync(adminId, 8);

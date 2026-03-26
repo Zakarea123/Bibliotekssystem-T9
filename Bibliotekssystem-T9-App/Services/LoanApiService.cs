@@ -57,4 +57,11 @@ public class LoanApiService
         var response = await _client.PostAsJsonAsync("api/loans", new { itemId, borrowerId, dueDate });
         response.EnsureSuccessStatusCode();
     }
+    
+    // Calls DELETE {/api/loans/{id}} to remove a loan
+    public async Task DeleteLoanAsync(int loanId)
+    {
+        var response = await _client.DeleteAsync($"api/loans/{loanId}");
+        response.EnsureSuccessStatusCode();
+    }
 }

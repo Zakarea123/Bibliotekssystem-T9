@@ -223,7 +223,7 @@
     .users-table tbody tr:last-child td {
         border-bottom: none;
     }
-
+    
 .action-cell {
     white-space: nowrap;
 }

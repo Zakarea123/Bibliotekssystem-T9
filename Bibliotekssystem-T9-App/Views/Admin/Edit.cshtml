@@ -20,13 +20,16 @@
                         Hantera användare
                     </a>
 
-                    <a href="#" class="sidebar-link">
+                    <a asp-controller="Catalog" asp-action="Index" class="sidebar-link">
                         Hantera katalog
                     </a>
-
-                    <a href="#" class="sidebar-link">
-                        Hantera utlåningsstatus
-                        <span>och påminnelser</span>
+                    
+                    <a asp-controller="Admin" asp-action="ManageLoans" class="sidebar-link">
+                        Hantera Lån
+                    </a>
+                    
+                    <a asp-controller="Reviews" asp-action="Index" class="sidebar-link">
+                        Hantera recensioner
                     </a>
                 </nav>
             </div>

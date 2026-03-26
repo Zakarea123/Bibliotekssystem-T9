@@ -11,11 +11,15 @@ public class AdminController : Controller
 {
     private readonly UserApiService _userApiService;
     private readonly NotificationApiService _notificationApiService;
-
-    public AdminController(UserApiService userApiService, NotificationApiService notificationApiService)
+    private readonly LoanApiService _loanApiService;
+    private readonly CatalogApiService _catalogApiService; 
+    public AdminController(UserApiService userApiService, NotificationApiService notificationApiService,
+        LoanApiService loanApiService, CatalogApiService catalogApiService)
     {
         _userApiService = userApiService;
         _notificationApiService = notificationApiService;
+        _loanApiService = loanApiService;
+        _catalogApiService = catalogApiService;
     }
 
     public async Task<IActionResult> Index(string? searchTerm)
@@ -110,5 +114,55 @@ public class AdminController : Controller
         await _notificationApiService.CreateNotificationAsync(adminId, 7);
         
         return RedirectToAction(nameof(Index));
+    }
+    
+    // Shows all active loans across all users for admin management
+    public async Task<IActionResult> ManageLoans()
+    {
+        var activeLoans = await _loanApiService.GetActiveLoansAsync();
+
+        var itemTitles = new Dictionary<int, string>();
+        foreach (var loan in activeLoans)
+        {
+            var item = await _catalogApiService.GetItemAsync(loan.ItemId);
+            itemTitles[loan.ItemId] = item?.Title ?? $"Objekt {loan.ItemId}";
+        }
+
+        ViewBag.ItemTitles = itemTitles;
+        return View(activeLoans);
+    }
+    
+    // Deletes a loan by ID
+    [HttpPost]
+    public async Task<IActionResult> DeleteLoan(int loanId)
+    {
+        await _loanApiService.DeleteLoanAsync(loanId);
+        TempData["SuccessMessage"] = "Lånet har tagits bort!";
+        return RedirectToAction(nameof(ManageLoans));
+    }
+    
+    // Fetches available items and all users for the create loan form dropdowns
+    [HttpGet]
+    public async Task<IActionResult> CreateAdminLoan()
+    {
+        var items = await _catalogApiService.GetItemsAsync();
+        var activeLoans = await _loanApiService.GetActiveLoansAsync();
+        var users = await _userApiService.GetUsersAsync();
+
+        var borrowedItemIds = activeLoans.Select(l => l.ItemId).ToHashSet();
+        var availableItems = items.Where(i => !borrowedItemIds.Contains(i.Id)).ToList();
+
+        ViewBag.AvailableItems = availableItems;
+        ViewBag.Users = users;
+        return View();
+    }
+    
+    // Creates a new loan on behalf of a user, then redirects back to ManageLoans
+    [HttpPost]
+    public async Task<IActionResult> CreateAdminLoan(int itemId, int borrowerId, DateTime dueDate)
+    {
+        await _loanApiService.CreateLoanAsync(itemId, borrowerId, dueDate);
+        TempData["SuccessMessage"] = "Lånet har registrerats!";
+        return RedirectToAction(nameof(ManageLoans));
     }
 }

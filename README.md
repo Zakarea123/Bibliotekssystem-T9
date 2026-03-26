@@ -2,6 +2,10 @@
 Detta projekt är ett bibliotekssystem utvecklat med **ASP.NET Core MVC** och flera separata **Web API-tjänster**.  
 Frontend-klienten fungerar som användarens gränssnitt där böcker kan visas, lån kan hanteras och delar av systemet är skyddade bakom inloggning.
 
+## Live Demo / Huvudsida
+**MVC-klienten (huvudwebbplatsen):**  
+https://library-system.azurewebsites.net/
+
 ## Projektöversikt
 
 Systemet består av:
@@ -36,7 +40,7 @@ Systemet består av:
 | Kim Sandblom | CatalogService | https://library-catalog-service.azurewebsites.net | https://github.com/Skimlyy/library-catalog-service |
 | Angelinne Fors | AccountService | https://user-service-t9.azurewebsites.net | https://github.com/Angie-nin/Bibliotekssystem-T9-UserService |
 | Zakarea Alammour | LoanService | https://loan-service.azurewebsites.net | https://github.com/Zakarea123/LoanService |
-| Henrik Glahns | ReviewService | https://book-review-service.azurewebsites.net | https://github.com/MoshuGosu/Review-service |
+| Henrik Glahns(MoshuGosu) | ReviewService | https://book-review-service.azurewebsites.net | https://github.com/MoshuGosu/Review-service |
 | Joakim Danling | NotificationService | https://notification-service-t9.azurewebsites.net | https://github.com/jockedanling/bibliotekssystem-notification-service |
 
 ## Arkitektur

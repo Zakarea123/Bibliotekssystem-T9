@@ -115,4 +115,29 @@ public class AdminController : Controller
         
         return RedirectToAction(nameof(Index));
     }
+    
+    // Shows all active loans across all users for admin management
+    public async Task<IActionResult> ManageLoans()
+    {
+        var activeLoans = await _loanApiService.GetActiveLoansAsync();
+
+        var itemTitles = new Dictionary<int, string>();
+        foreach (var loan in activeLoans)
+        {
+            var item = await _catalogApiService.GetItemAsync(loan.ItemId);
+            itemTitles[loan.ItemId] = item?.Title ?? $"Objekt {loan.ItemId}";
+        }
+
+        ViewBag.ItemTitles = itemTitles;
+        return View(activeLoans);
+    }
+    
+    // Deletes a loan by ID
+    [HttpPost]
+    public async Task<IActionResult> DeleteLoan(int loanId)
+    {
+        await _loanApiService.DeleteLoanAsync(loanId);
+        TempData["SuccessMessage"] = "Lånet har tagits bort!";
+        return RedirectToAction(nameof(ManageLoans));
+    }
 }

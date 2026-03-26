@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Hantera recensioner";
+    var isAdmin = User.IsInRole("Admin");
 }
 
 @section Styles {
@@ -11,28 +12,61 @@
 <div class="admin-page">
     <div class="admin-frame">
 
-        <aside class="admin-sidebar">
-            <div>
+        <!--SIDEBAR -->
+        @if (isAdmin)
+        {
+            <aside class="admin-sidebar">
+                <div>
+                    <h2 class="sidebar-title">Meny</h2>
+
+                    <nav class="sidebar-nav">
+                        <a asp-controller="Admin" asp-action="Index" class="sidebar-link">
+                            Hantera användare
+                        </a>
+
+                        <a asp-controller="Catalog" asp-action="Index" class="sidebar-link">
+                            Hantera katalog
+                        </a>
+
+                        <a asp-controller="Reviews" asp-action="Index" class="sidebar-link active">
+                            Hantera recensioner
+                        </a>
+                    </nav>
+                </div>
+
+                <a asp-controller="Home" asp-action="Index" class="back-link">Till start</a>
+            </aside>
+        }
+        else
+        {
+            <aside class="admin-sidebar">
                 <h2 class="sidebar-title">Meny</h2>
 
                 <nav class="sidebar-nav">
-                    <a asp-controller="Admin" asp-action="Index" class="sidebar-link">
-                        Hantera användare
+                    <a asp-controller="Loans" asp-action="Borrow" class="sidebar-link">
+                        Låna Objekt
                     </a>
 
-                    <a asp-controller="Catalog" asp-action="Index" class="sidebar-link">
-                        Hantera katalog
+                    <a asp-controller="Loans" asp-action="Return" class="sidebar-link">
+                        Returnera Objekt
+                    </a>
+
+                    <a asp-controller="Loans" asp-action="Index" class="sidebar-link">
+                        Mina Lån
+                    </a>
+                    
+                    <a asp-controller="Loans" asp-action="History" class="sidebar-link">
+                        Lånhistorik
                     </a>
 
                     <a asp-controller="Reviews" asp-action="Index" class="sidebar-link active">
-                        Hantera recensioner
+                        Recensioner
                     </a>
-                    
                 </nav>
-            </div>
 
-            <a asp-controller="Home" asp-action="Index" class="back-link">Till start</a>
-        </aside>
+                <a asp-controller="Home" asp-action="Index" class="back-link">Till start</a>
+            </aside>
+        }
 
         <section class="admin-stage">
             <div class="admin-card">

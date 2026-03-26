@@ -7,6 +7,10 @@
     width: min(900px, 92%);
     padding: 28px 32px 28px;
     text-align: left;
+    display: flex;
+    flex-direction: column;  
+    min-height: 0;
+    max-height: 80vh;
 }
 
 /* Back button */
@@ -50,43 +54,40 @@
     color: #123;
 }
 
-/* Table wrapper — scroll on small screens */
+/* Duplication to keep admin design as is */
 .loans-table-wrapper {
     overflow-x: auto;
+    overflow-y: auto;
+    min-height: 0;
+    flex: 1;
 }
-
 .loans-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 14px;
+    background: rgba(255, 255, 255, 0.72);
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 0.96rem;
 }
 
-.loans-table thead tr {
-    border-bottom: 2px solid rgba(0,0,0,0.10);
-}
-
-.loans-table th {
+.loans-table thead th {
     text-align: left;
-    padding: 10px 14px;
-    font-weight: 600;
-    color: #333;
-    font-size: 13px;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
+    padding: 0.65rem 0.65rem;
+    color: #222;
+    font-weight: 700;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    background: rgba(255, 255, 255, 0.5);
 }
 
-.loans-table td {
-    padding: 12px 14px;
-    color: #222;
-    border-bottom: 1px solid rgba(0,0,0,0.06);
+.loans-table tbody td {
+    padding: 0.65rem 0.65rem;
+    color: #333;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+    vertical-align: middle;
 }
 
 .loans-table tbody tr:last-child td {
     border-bottom: none;
-}
-
-.loans-table tbody tr:hover {
-    background: rgba(0, 68, 86, 0.04);
 }
 
 /* Status badges */

@@ -224,37 +224,6 @@
         border-bottom: none;
     }
     
-    
-/* Duplication to keep admin design as is */
-.loans-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: rgba(255, 255, 255, 0.72);
-    border-radius: 10px;
-    overflow: hidden;
-    font-size: 0.96rem;
-}
-
-.loans-table thead th {
-    text-align: left;
-    padding: 0.65rem 0.65rem;
-    color: #222;
-    font-weight: 700;
-    border-bottom: 1px solid rgba(0,0,0,0.08);
-    background: rgba(255, 255, 255, 0.5);
-}
-
-.loans-table tbody td {
-    padding: 0.65rem 0.65rem;
-    color: #333;
-    border-bottom: 1px solid rgba(0,0,0,0.08);
-    vertical-align: middle;
-}
-
-.loans-table tbody tr:last-child td {
-    border-bottom: none;
-}
-
 .action-cell {
     white-space: nowrap;
 }

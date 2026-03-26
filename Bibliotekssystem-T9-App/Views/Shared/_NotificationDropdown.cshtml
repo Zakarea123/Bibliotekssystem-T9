@@ -17,7 +17,7 @@ else
                 <div class="notif-title">@n.Title</div>
                 <div class="notif-message">@n.Message</div>
                 <div class="notif-footer">
-                    <span class="notif-time">@n.CreatedAt.ToString("dd MMM HH:mm")</span>
+                    <span class="notif-time">@n.CreatedAt.ToLocalTime().ToString("dd MMM HH:mm")</span>
                     <div class="notif-actions"> @if (!n.IsRead)
                                                 {
                                                     <button class="notif-btn-read" onclick="markRead(@n.Id, this)">Markera läst</button>

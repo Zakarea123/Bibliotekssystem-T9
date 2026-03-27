@@ -124,7 +124,12 @@
                                         <td>@review.Text</td>
 
                                         <td class="action-cell">
-                                            @if (User.Identity.IsAuthenticated)
+                                            @{
+                                                var currentUser = User.Identity!.Name;
+                                            }
+
+                                            @if (User.Identity.IsAuthenticated &&
+                                                 (review.ReviewerName == currentUser || isAdmin))
                                             {
                                                 <a asp-action="Edit" asp-route-id="@review.ReviewId" class="edit-btn">
                                                     Redigera

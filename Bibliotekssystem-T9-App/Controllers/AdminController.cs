@@ -136,8 +136,10 @@ public class AdminController : Controller
     [HttpPost]
     public async Task<IActionResult> DeleteLoan(int loanId)
     {
+        var adminId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
         await _loanApiService.DeleteLoanAsync(loanId);
         TempData["SuccessMessage"] = "Lånet har tagits bort!";
+        await _notificationApiService.CreateNotificationAsync(adminId, 9);
         return RedirectToAction(nameof(ManageLoans));
     }
     
@@ -161,8 +163,10 @@ public class AdminController : Controller
     [HttpPost]
     public async Task<IActionResult> CreateAdminLoan(int itemId, int borrowerId, DateTime dueDate)
     {
+        var adminId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
         await _loanApiService.CreateLoanAsync(itemId, borrowerId, dueDate);
         TempData["SuccessMessage"] = "Lånet har registrerats!";
+        await _notificationApiService.CreateNotificationAsync(adminId, 9);
         return RedirectToAction(nameof(ManageLoans));
     }
 }

@@ -48,8 +48,8 @@ public class ReviewsController : Controller
         review.ReviewerName = User.Identity!.Name;
         
         await _reviewService.CreateReviewAsync(review);
-        var adminId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-        await _notificationApiService.CreateNotificationAsync(adminId, 8);
+        var borrowerId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        await _notificationApiService.CreateNotificationAsync(borrowerId, 10);
         return RedirectToAction("Index");
     }
 
@@ -96,7 +96,7 @@ public class ReviewsController : Controller
         
         await _reviewService.DeleteReviewAsync(id);
         var adminId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
-        await _notificationApiService.CreateNotificationAsync(adminId, 8);
+        await _notificationApiService.CreateNotificationAsync(adminId, 11);
         return RedirectToAction("Index");
     }
 }

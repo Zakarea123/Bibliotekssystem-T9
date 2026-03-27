@@ -22,6 +22,15 @@ if (btn) { // Om elementet inte finns på sidan returnerar getElementById null
 
         const resp = await fetch('/Notifications/Dropdown');
         panel.innerHTML = await resp.text();
+        
+        // En lösning för att visa rätt tidszon i gränssnittet för notifikationer. 
+        panel.querySelectorAll('.notif-time[data-utc]').forEach((el) => {
+            const date = new Date(el.dataset.utc + 'Z');
+            el.textContent = date.toLocaleDateString('sv-SE', {
+                day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' 
+            });
+        })
+        
         panel.classList.add('open');
 
         const unread = panel.querySelectorAll('.notif-item.unread').length;

@@ -138,6 +138,7 @@ public class AdminController : Controller
     {
         await _loanApiService.DeleteLoanAsync(loanId);
         TempData["SuccessMessage"] = "Lånet har tagits bort!";
+        await _notificationApiService.CreateNotificationAsync(loanId, 9);
         return RedirectToAction(nameof(ManageLoans));
     }
     
@@ -163,6 +164,7 @@ public class AdminController : Controller
     {
         await _loanApiService.CreateLoanAsync(itemId, borrowerId, dueDate);
         TempData["SuccessMessage"] = "Lånet har registrerats!";
+        await _notificationApiService.CreateNotificationAsync(borrowerId, 9);
         return RedirectToAction(nameof(ManageLoans));
     }
 }

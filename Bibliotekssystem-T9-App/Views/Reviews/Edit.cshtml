@@ -16,7 +16,9 @@
 
                 <form asp-action="Edit" method="post">
 
-                    <input type="hidden" asp-for="ReviewId" />
+                    <!-- 🔥 KRITISKT -->
+                    <input asp-for="ReviewId" type="hidden" />
+                    <input asp-for="ReviewerName" type="hidden" />
 
                     <div class="form-group">
                         <label>Boktitel</label>
@@ -25,7 +27,7 @@
 
                     <div class="form-group">
                         <label>Användare</label>
-                        <input asp-for="ReviewerName" type="hidden" />
+                        <p><strong>@Model.ReviewerName</strong></p>
                     </div>
 
                     <div class="form-group">

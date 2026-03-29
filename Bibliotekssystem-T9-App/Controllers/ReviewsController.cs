@@ -68,7 +68,9 @@ public class ReviewsController : Controller
     [HttpPost]
     public async Task<IActionResult> Edit(int id, BookReviews review)
     {
-        if (!User.IsInRole("Admin") && review.ReviewerName != User.Identity!.Name)
+        var currentUser = User.Identity!.Name;
+
+        if (!User.IsInRole("Admin") && review.ReviewerName != currentUser)
             return Forbid();
 
         await _reviewService.UpdateReviewAsync(review);
@@ -89,14 +91,23 @@ public class ReviewsController : Controller
 
     // DELETE (POST)
     [HttpPost]
-    public async Task<IActionResult> Delete(int id, BookReviews review)
+    public async Task<IActionResult> Delete(int id, BookReviews reviews)
     {
-        if (!User.IsInRole("Admin") && review.ReviewerName != User.Identity!.Name)
+        var review = await _reviewService.GetReviewAsync(id);
+
+        if (review == null)
+            return NotFound();
+
+        var currentUser = User.Identity!.Name;
+
+        if (!User.IsInRole("Admin") && review.ReviewerName != currentUser)
             return Forbid();
-        
+
         await _reviewService.DeleteReviewAsync(id);
-        var adminId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+
+        var adminId = int.Parse(User.FindFirstValue(System.Security.Claims.ClaimTypes.NameIdentifier)!);
         await _notificationApiService.CreateNotificationAsync(adminId, 11);
+
         return RedirectToAction("Index");
     }
 }

@@ -1,16 +1,32 @@
 @model Bibliotekssystem_T9_App.Models.BookReviews
 
-<h2>Ta bort recension</h2>
+@{
+    ViewData["Title"] = "Ta bort recension";
+}
 
-<p>Är du säker att du vill ta bort denna recension?</p>
+<div class="admin-page">
+    <div class="panel loans-panel">
 
-<p><strong>@Model.BookTitle</strong></p>
-<p>@Model.Text</p>
+        <section class="admin-stage">
+            <div class="admin-card">
 
-<form method="post">
-    <input type="hidden" asp-for="ReviewId" />
-    <input type="hidden" asp-for="ReviewerName" />
+                <div class="admin-card-header">
+                    <h1>Ta bort recension</h1>
+                </div>
 
-    <button type="submit">Ta bort</button>
-    <a asp-action="Index">Avbryt</a>
-</form>
+                <p>Är du säker att du vill ta bort denna recension?</p>
+
+                <p><strong>@Model.BookTitle</strong></p>
+                <p>@Model.Text</p>
+
+                <form asp-action="Delete" method="post">
+                    <input type="hidden" name="id" value="@Model.ReviewId" />
+
+                    <button type="submit" class="delete-btn">Ta bort</button>
+                    <a asp-action="Index" class="back-btn">Avbryt</a>
+                </form>
+
+            </div>
+        </section>
+    </div>
+</div>

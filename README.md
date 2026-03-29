@@ -6,6 +6,19 @@ Frontend-klienten fungerar som användarens gränssnitt där böcker kan visas, 
 **MVC-klienten (huvudwebbplatsen):**  
 https://library-system.azurewebsites.net/
 
+## Demo Accounts
+
+Use the following accounts to log in and test the system:
+
+### Admin Account
+- **Email:** `terry@admin.com`
+- **Password:** `Password123!`
+
+### User Account
+- **Email:** `andreas@user.com`
+- **Password:** `password123!`
+
+
 ## Projektöversikt
 
 Systemet består av:

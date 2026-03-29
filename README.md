@@ -16,7 +16,7 @@ Use the following accounts to log in and test the system:
 
 ### User Account
 - **Email:** `andreas@user.com`
-- **Password:** `password123!`
+- **Password:** `Password123!`
 
 
 ## Projektöversikt
